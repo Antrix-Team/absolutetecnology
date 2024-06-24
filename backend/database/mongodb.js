@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+dotenv.config();
 
-const url = "mongodb://localhost:27017/absolutetecnology"
+const url = process.env.URL
 
 const mongodbConnect =  async()=> {
     try {

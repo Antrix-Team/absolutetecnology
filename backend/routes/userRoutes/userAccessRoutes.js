@@ -13,10 +13,12 @@ SendResetPasswordEmail,
 VerifyResetTokenAndUpdatePassword} from '../../controllers/admin/ResetPasswordController.js';
 
 import AccessLogin from '../../controllers/admin/AccessUserController.js';
+
 import verifyToken from '../../middlewares/tokenUserAccess.js';
+
 import express from 'express';
-import verifyToken from "../middleware/middleware.js";
-  
+
+
 const routesUserAccess = express.Router();
   
   

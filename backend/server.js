@@ -1,13 +1,25 @@
-import express from "express"
-import mongodbConnect from "./database/mongodb.js"
-import rutas from "./routes/Productroutes.js"
+import express from 'express';
+import connectDB from './database/mongodb.js';
+import routesUserAccess from './routes/userRoutes/userAccessRoutes.js';
+import dotenv from 'dotenv';
+import cors from 'cors';
+
+dotenv.config();
+
+const server = express();
+
+server.use(cors());
+
+const PORT = process.env.PORT ;
+
+connectDB();
+server.use(express.json());
 
 
 
-const URL = 3000
-const server = express()
-server.use(express.json())
-server.use('/', rutas)
-mongodbConnect()
+server.use('/api', routesUserAccess);
 
-server.listen(URL, () => {console.log(`corriendo en http://localhost:${URL}`);})
+
+
+
+server.listen(PORT, () => console.log(`RUN server in : http://localhost:${PORT}`));

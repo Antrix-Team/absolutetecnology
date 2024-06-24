@@ -1,6 +1,7 @@
 import React from "react";
 import tw, { styled, css } from "twin.macro";
 
+//este es un componente navbar
 const NavLink = styled.a(() => [
     tw`text-white text-lg mx-4 px-4 py-2 transition-colors duration-300`,
     css`

@@ -5,16 +5,24 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
-
 const AccessLogin = async (req, res) => {
     const { username, passw } = req.body;
+
+
+    if (!username || !passw) {
+        return res.status(400).send('Username and password are required');
+    }
+
     try {
         const user = await UserModel.findOne({ username });
         if (!user) {
             return res.status(401).send('Invalid credentials');
         }
 
+ 
+        if (!user.passw) {
+            return res.status(500).send('User password is not set');
+        }
 
         const isMatch = await bcrypt.compare(passw, user.passw);
         if (!isMatch) {
@@ -30,4 +38,4 @@ const AccessLogin = async (req, res) => {
     }
 };
 
-export default AccessLogin
+export default AccessLogin;

@@ -3,6 +3,7 @@ import upload from "../../middlewares/uploadImage.js";
 import verifyToken from "../../middlewares/tokenUserAccess.js";
 import {
   CreateProduct,
+  DeleteProduct,
   GetProduct,
   GetProducts,
   UpdateImageProduct,
@@ -11,15 +12,22 @@ import {
 
 const productRouter = Router();
 
-productRouter.get("/product", verifyToken, GetProducts);
-productRouter.get("/product/:id", verifyToken, GetProduct);
+productRouter.get("/products", verifyToken, GetProducts);
+productRouter.get("/products/:id", verifyToken, GetProduct);
 productRouter.post(
-  "/product",
+  "/products",
   verifyToken,
   upload.single("image"),
   CreateProduct
 );
-productRouter.put("/product", verifyToken, UpdateProduct);
-productRouter.put("/product/upload/:id", verifyToken, UpdateImageProduct);
+productRouter.put("/products/:id", verifyToken, UpdateProduct);
+productRouter.put(
+  "/products/upload/:id",
+  verifyToken,
+  upload.single("image"),
+  UpdateImageProduct
+);
+
+productRouter.delete("/products/:id", verifyToken, DeleteProduct);
 
 export default productRouter;

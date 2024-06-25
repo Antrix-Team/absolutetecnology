@@ -1,30 +1,36 @@
 import { Router } from "express";
-import upload from "../../middlewares/uploadImage.js";
+import uploadImageProduct from "../../middlewares/uploadImage.js";
 import verifyToken from "../../middlewares/tokenUserAccess.js";
-import {
-  CreateProduct,
-  DeleteProduct,
+
+import { CreateProduct } from "../../controllers/product/CreateProductController.js";
+
+import { 
   GetProduct,
   GetProducts,
-  UpdateImageProduct,
+  DeleteProduct
+
+ } from "../../controllers/product/GetAndDeleteProductController.js";
+
+import { 
   UpdateProduct,
-} from "../../controllers/product/ProductController.js";
+  UpdateImageProduct  
+} from "../../controllers/product/UpdateProductController.js";
 
 const productRouter = Router();
 
 productRouter.get("/products", verifyToken, GetProducts);
 productRouter.get("/products/:id", verifyToken, GetProduct);
 productRouter.post(
-  "/products",
+  "/productsadd",
   verifyToken,
-  upload.single("image"),
+  uploadImageProduct.single("image"),
   CreateProduct
 );
 productRouter.put("/products/:id", verifyToken, UpdateProduct);
 productRouter.put(
   "/products/upload/:id",
   verifyToken,
-  upload.single("image"),
+  uploadImageProduct.single("image"),
   UpdateImageProduct
 );
 

@@ -15,6 +15,7 @@ import {
   UpdateProduct,
   UpdateImageProduct,
 } from "../../controllers/product/UpdateProductController.js";
+import { validationMiddleware } from "../../middlewares/validationMiddleware.js";
 
 const productRouter = Router();
 
@@ -30,6 +31,7 @@ productRouter.post(
   body("price").notEmpty().isDecimal(),
   body("categoryId").notEmpty().isMongoId(),
   body("subCategoryId").notEmpty().isMongoId(),
+  validationMiddleware,
   CreateProduct
 );
 productRouter.put(
@@ -40,6 +42,7 @@ productRouter.put(
   body("price").optional().isDecimal(),
   body("categoryId").optional().isMongoId(),
   body("subCategoryId").optional().isMongoId(),
+  validationMiddleware,
   UpdateProduct
 );
 productRouter.put(

@@ -1,6 +1,11 @@
 import React from "react";
+import { Outlet } from 'react-router-dom';
 import tw, { styled, css } from "twin.macro";
 import NavbarDefault from "../navbar/NavbarComponent";
+
+const HeaderContainer = styled.div`
+  ${tw`flex flex-col min-h-screen`}
+`;
 
 const Header = styled.header(({ isHovered }) => [
   tw`bg-purple-900 text-white rounded-2xl shadow-2xl flex justify-center items-center transition-transform duration-500 ease-in-out p-4`,
@@ -16,17 +21,26 @@ const Header = styled.header(({ isHovered }) => [
   `,
 ]);
 
+const ContentContainer = styled.div`
+  ${tw`flex-grow p-4`}
+`;
+
 const HeaderDefault = () => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   return (
-    <Header
-      isHovered={isHovered}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <NavbarDefault/>
-    </Header>
+    <HeaderContainer>
+      <Header
+        isHovered={isHovered}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeader={() => setIsHovered(false)}
+      >
+        <NavbarDefault />
+      </Header>
+      <ContentContainer>
+        <Outlet />
+      </ContentContainer>
+    </HeaderContainer>
   );
 };
 

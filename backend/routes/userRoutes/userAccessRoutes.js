@@ -2,21 +2,21 @@ import {
 CreateNewUser,
 UpdatePassw,
 UpdateUserById
-} from '../../controllers/admin/CreateUserAndUpdate.js';
+} from "../../controllers/admin/CreateUserAndUpdate.js";
 
 import { 
 GetUserById,
-GetUsers } from '../../controllers/admin/GetUserController.js';
+GetUsers } from "../../controllers/admin/GetUserController.js";
 
 import {
 SendResetPasswordEmail,
-VerifyResetTokenAndUpdatePassword} from '../../controllers/admin/ResetPasswordController.js';
+VerifyResetTokenAndUpdatePassword} from "../../controllers/admin/ResetPasswordController.js";
 
-import AccessLogin from '../../controllers/admin/AccessUserController.js';
+import AccessLogin from "../../controllers/admin/AccessUserController.js";
 
-import verifyToken from '../../middlewares/tokenUserAccess.js';
+import verifyToken from "../../middlewares/tokenUserAccess.js";
 
-import express from 'express';
+import express from "express";
 
 
 const routesUserAccess = express.Router();

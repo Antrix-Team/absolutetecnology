@@ -1,5 +1,4 @@
-import React from 'react'
-import './LoginRegister.css';
+import "./LoginRegister.css";
 import { FaUserAlt, FaLock} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 

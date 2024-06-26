@@ -1,7 +1,6 @@
-import React from 'react';
-import LoginForm from '../../components/LoginComponent/LoginForm';
-import useLogin from '../../hooks/LoginHooks/LoginHooks';
-import './LoginPage.css';
+import LoginForm from "../../components/LoginComponent/LoginForm";
+import useLogin from "../../hooks/LoginHooks/LoginHooks";
+import "./LoginPage.css";
 
 const LoginPage = () => {
     const loginHook = useLogin();

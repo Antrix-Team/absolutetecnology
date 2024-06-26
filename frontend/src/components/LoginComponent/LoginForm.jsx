@@ -1,6 +1,5 @@
-import React from 'react';
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import './LoginForm.css';
+import "./LoginForm.css";
 
 const LoginForm = ({ username, setUsername, password, setPassword, error, handleSubmit }) => {
     return (

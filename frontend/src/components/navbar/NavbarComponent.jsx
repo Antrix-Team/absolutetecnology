@@ -1,4 +1,3 @@
-import React from "react";
 import tw, { styled, css } from "twin.macro";
 
 //este es un componente navbar

@@ -1,6 +1,7 @@
 import React from "react";
 import tw, { styled, css } from "twin.macro";
 import NavbarDefault from "../navbar/NavbarComponent";
+
 const Header = styled.header(({ isHovered }) => [
   tw`bg-purple-900 text-white rounded-2xl shadow-2xl flex justify-center items-center transition-transform duration-500 ease-in-out p-4`,
   isHovered && tw`transform scale-95`,

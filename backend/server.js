@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import cors from "cors";
 import mongodbConnect from "./database/mongodb.js";
 import productRouter from "./routes/productRoutes/productRoutes.js";
+import { globalErrorMiddleware } from "./middlewares/validationMiddleware.js";
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ server.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 server.use("/api", routesUserAccess);
 server.use("/api", productRouter);
+
+server.use(globalErrorMiddleware);
 
 server.listen(PORT, () =>
   console.log(`RUN server in : http://localhost:${PORT}`)

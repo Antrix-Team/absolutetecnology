@@ -10,6 +10,21 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadImageProduct = multer({ storage });
+const fileFilter = (req, file, cb) => {
+  const imageExtension = file.mimetype.split("/")[1];
+  const validImageExtensions = ["jpg", "jpge", "png", "webp"];
+  if (validImageExtensions.includes(imageExtension)) {
+    return cb(null, true);
+  }
+
+  return cb(
+    new multer.MulterError(
+      "LIMIT_UNEXPECTED_FILE",
+      "Formato de imagen no permitido"
+    )
+  );
+};
+
+const uploadImageProduct = multer({ storage, fileFilter });
 
 export default uploadImageProduct;

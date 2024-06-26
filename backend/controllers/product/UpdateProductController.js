@@ -30,9 +30,11 @@ export const UpdateProduct = async (req, res) => {
   }
 };
 
-
 export const UpdateImageProduct = async (req, res) => {
   const { id } = req.params;
+  if (!req.file) {
+    return res.status(400).json({ message: "Imagen es requerida" });
+  }
   const image = req.file.filename;
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);

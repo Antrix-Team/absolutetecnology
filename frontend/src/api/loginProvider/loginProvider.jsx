@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const urlogin = import.meta.env.VITE_URL;
+
 const login = async (credentials) => {
     try {
-        const response = await axios.post('http://localhost:3000/api/login', credentials, {
+        const response = await axios.post(`${urlogin}/login`, credentials, {
             headers: {
                 'Content-Type': 'application/json',
             },

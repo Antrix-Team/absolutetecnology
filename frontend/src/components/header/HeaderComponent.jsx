@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 import tw, { styled, css } from "twin.macro";
 import NavbarDefault from "../navbar/NavbarComponent";
 

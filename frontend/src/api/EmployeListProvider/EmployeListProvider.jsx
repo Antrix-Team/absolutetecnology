@@ -1,11 +1,10 @@
-// src/api/EmployeListProvider/EmployeListProvider.jsx
 import axios from "axios";
 
 const urlemployee = import.meta.env.VITE_URL;
 
 const EmployeListProvider = async () => {
   try {
-    const token = localStorage.getItem('token'); // Asegúrate de que estás guardando el token después del login
+    const token = localStorage.getItem('token'); 
     if (!token) {
       throw new Error('No hay token de autenticación');
     }

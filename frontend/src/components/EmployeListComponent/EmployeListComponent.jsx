@@ -1,5 +1,4 @@
-
-import useEmployeList from '../../hooks/EmployeListHooks/EmployeListHook';
+import useEmployeList from "../../hooks/EmployeListHooks/EmployeListHook";
 
 const EmployeListComponent = () => {
   const { employees, loading, error, searchTerm, setSearchTerm, handleSearch } = useEmployeList();

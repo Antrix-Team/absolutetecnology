@@ -1,4 +1,4 @@
-import EmployeListComponent from '../../components/EmployeListComponent/EmployeListComponent';
+import EmployeListComponent from "../../components/EmployeListComponent/EmployeListComponent";
 
 const EmployeListPage = () => {
   return (

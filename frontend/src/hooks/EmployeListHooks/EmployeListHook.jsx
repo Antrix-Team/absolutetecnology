@@ -1,7 +1,6 @@
-// src/hooks/EmployeListHooks/EmployeListHooks.jsx
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import EmployeListProvider from '../../api/EmployeListProvider/EmployeListProvider';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import EmployeListProvider from "../../api/EmployeListProvider/EmployeListProvider";
 
 const useEmployeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -22,7 +21,7 @@ const useEmployeList = () => {
     } catch (err) {
       setError(err.message);
       if (err.message.includes('Sesión expirada') || err.message.includes('no autorizada')) {
-        // Redirigir al usuario a la página de login
+        
         navigate('/');
       }
     } finally {

@@ -3,19 +3,26 @@ import routesUserAccess from "./routes/userRoutes/userAccessRoutes.js";
 import dotenv from "dotenv";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongodbConnect from "./database/mongodb.js";
 import productRouter from "./routes/productRoutes/productRoutes.js";
 import { globalErrorMiddleware } from "./middlewares/validationMiddleware.js";
+import verifyToken from "./middlewares/tokenUserAccess.js";
 
 dotenv.config();
+
 
 const server = express();
 
 mongodbConnect();
 
-server.use(cors());
+server.use(cors({
+  origin: process.env.FRONTEND_URL, 
+  credentials: true
+}));
 
+server.use(cookieParser());
 const PORT = process.env.PORT;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +30,7 @@ server.use(express.json());
 server.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 server.use("/api", routesUserAccess);
-server.use("/api", productRouter);
+server.use("/api", verifyToken, productRouter);
 
 server.use(globalErrorMiddleware);
 

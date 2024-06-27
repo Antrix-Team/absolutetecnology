@@ -7,16 +7,16 @@ export const CreateCategory = async (req, res) => {
   const { id } = req.user;
 
   if (!category || !description) {
-    return res.status(400).json({ message: "Category and description are required" });
+    return res.status(400).json({ message: "Categoria y descripcion son requeridas" });
   }
 
   try {
-    console.log("Request Body: ", req.body);
+    //console.log("Request Body: ", req.body);
 
     // Verificar si la categoría ya existe
     const existingCategory = await CategoryModel.findOne({ category });
     if (existingCategory) {
-      return res.status(400).json({ message: "Category already exists" });
+      return res.status(400).json({ message: "Esta categoria ya existe" });
     }
 
     const newCategory = new CategoryModel({

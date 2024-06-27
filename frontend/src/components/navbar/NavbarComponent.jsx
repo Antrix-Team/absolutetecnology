@@ -63,9 +63,9 @@ const NavbarDefault = () => {
       <Logo>logo</Logo>
       <NavLinksContainer>
         <HomeLink to="/dashboard">Home</HomeLink>
-        <ProductsLink to="/dashboard/employees">Products</ProductsLink>
+        <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <ProviderLink to="/dashboard">Providers</ProviderLink>
-        <UsersLink to="/dashboard">Users</UsersLink>
+        <UsersLink to="/dashboard/employees">Users</UsersLink>
         <AddUserModal>Register</AddUserModal>
       </NavLinksContainer>
     </NavbarContainer>

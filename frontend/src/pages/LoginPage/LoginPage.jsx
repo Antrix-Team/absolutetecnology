@@ -6,10 +6,13 @@ const LoginPage = () => {
     const loginHook = useLogin();
 
     return (
-        <div className='wrapper'>
-            <LoginForm {...loginHook} />
+        <div className='bodyLogin'>
+            <div className='wrapper'>
+                <LoginForm {...loginHook} />
+            </div>
         </div>
     );
 };
+
 
 export default LoginPage;

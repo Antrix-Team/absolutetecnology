@@ -3,12 +3,26 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 export const GetProducts = async (req, res) => {
+  const { name } = req.query;
+  const queryFilter = { status: "ACTIVE" };
+
+  if (name) {
+    queryFilter.name = { $regex: name, $options: "i" };
+  }
+
+  const populateQuery = [
+    { path: "categoryId", select: "_id category description" },
+    { path: "subCategoryId", select: "_id subcategory description" },
+  ];
+
   try {
-    const products = await ProductModel.find({ status: "ACTIVE" });
+    const products = await ProductModel.find(queryFilter).populate(
+      populateQuery
+    );
     res.json(products);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };

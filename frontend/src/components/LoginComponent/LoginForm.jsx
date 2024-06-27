@@ -3,8 +3,8 @@ import "./LoginForm.css";
 
 const LoginForm = ({ username, setUsername, password, setPassword, error, handleSubmit }) => {
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Inicio de Sesion</h1>
+        <form onSubmit={handleSubmit} className="login-form">
+            <h1>Inicio de Sesión</h1>
             {error && <p className="error">{error}</p>}
             <div className='input-box'>
                 <input 

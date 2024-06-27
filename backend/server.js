@@ -18,17 +18,18 @@ const server = express();
 
 mongodbConnect();
 
-server.use(cors({
-  origin: process.env.FRONTEND_URL, 
-  credentials: true
-}));
-
 server.use(cookieParser());
 const PORT = process.env.PORT;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 server.use(express.json());
 server.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+server.use(cors(corsOptions));
 
 // Rutas
 server.use("/api", routesUserAccess);

@@ -8,14 +8,10 @@ const login = async (credentials) => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true // Permitir el envío y recepción de cookies
         });
 
-        if (response.status === 200 && response.data.token) {
-            localStorage.setItem('accessToken', response.data.token);
-            console.log('Login successful, token stored in localStorage');
-        } else {
-            throw new Error('Hubo un problema al iniciar sesión');
-        }
+        return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || error.message);
     }

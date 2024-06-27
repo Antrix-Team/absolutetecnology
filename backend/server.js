@@ -9,9 +9,10 @@ import mongodbConnect from "./database/mongodb.js";
 import productRouter from "./routes/productRoutes/productRoutes.js";
 import { globalErrorMiddleware } from "./middlewares/validationMiddleware.js";
 import verifyToken from "./middlewares/tokenUserAccess.js";
+import categoryRouter from "./routes/categoryRoutes/categoryRoutes.js";
+import subcategoryRouter from "./routes/subcategoryRoutes/subcategoryRoutes.js";
 
 dotenv.config();
-
 
 const server = express();
 
@@ -29,9 +30,13 @@ const __dirname = path.dirname(__filename);
 server.use(express.json());
 server.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Rutas
 server.use("/api", routesUserAccess);
 server.use("/api", verifyToken, productRouter);
+server.use("/api", categoryRouter);
+server.use("/api", subcategoryRouter);
 
+// Middleware global para manejo de errores
 server.use(globalErrorMiddleware);
 
 server.listen(PORT, () =>

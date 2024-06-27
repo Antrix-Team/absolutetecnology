@@ -7,6 +7,7 @@ import cors from "cors";
 import mongodbConnect from "./database/mongodb.js";
 import productRouter from "./routes/productRoutes/productRoutes.js";
 import { globalErrorMiddleware } from "./middlewares/validationMiddleware.js";
+import categoryRouter from "./routes/categoryRoutes/categoryRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ server.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 server.use("/api", routesUserAccess);
 server.use("/api", productRouter);
+server.use("/api", categoryRouter);
 
 server.use(globalErrorMiddleware);
 

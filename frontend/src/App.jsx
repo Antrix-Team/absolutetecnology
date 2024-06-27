@@ -1,14 +1,9 @@
-import dashboardPage from "./pages/DashboardPage/DashboardPage";
-
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 const App = () => {
-
-  const Dashboard = dashboardPage
-
   return (
-    <Dashboard/>
-  )
+    <DashboardPage />
+  );
 }
 
-
-export default App
+export default App;

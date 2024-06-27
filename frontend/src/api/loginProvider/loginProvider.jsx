@@ -8,7 +8,7 @@ const login = async (credentials) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true // Permitir el envío y recepción de cookies
+            withCredentials: true // Allow sending and receiving cookies
         });
 
         return response.data;

@@ -18,10 +18,6 @@ const AccessLogin = async (req, res) => {
             return res.status(401).send('Invalid credentials');
         }
 
-        if (!user.passw) {
-            return res.status(500).send('User password is not set');
-        }
-
         const isMatch = await bcrypt.compare(passw, user.passw);
         if (!isMatch) {
             return res.status(401).send('Invalid credentials');
@@ -29,15 +25,14 @@ const AccessLogin = async (req, res) => {
 
         const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: '7d' });
 
-        // Set the token as a cookie
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            secure: process.env.NODE_ENV === 'production', 
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
         res.json({ message: "User logged in successfully" });
-        console.log("User logged in successfully");
+        console.log("login is success");
     } catch (error) {
         res.status(500).send('Server error');
         console.error("Error in the server", error);

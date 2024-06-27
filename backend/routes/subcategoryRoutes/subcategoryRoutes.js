@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import verifyToken from '../../middlewares/tokenUserAccess.js';
 import { CreateSubcategory } from '../../controllers/subcategory/CreateSubcategoryController.js';
+import { GetSubcategories, GetSubcategory, DeleteSubcategory } from '../../controllers/subcategory/getAndDeleteSubcategory.js';
 import { validationMiddleware } from '../../middlewares/validationMiddleware.js';
 import CategoryModel from '../../models/category/categoryModel.js';
 
@@ -22,5 +23,8 @@ subcategoryRouter.post(
   CreateSubcategory 
 );
 
+subcategoryRouter.get('/subcategories', verifyToken, GetSubcategories);
+subcategoryRouter.get('/subcategories/:id', verifyToken, GetSubcategory);
+subcategoryRouter.delete('/subcategories/:id', verifyToken, DeleteSubcategory);
 
 export default subcategoryRouter;

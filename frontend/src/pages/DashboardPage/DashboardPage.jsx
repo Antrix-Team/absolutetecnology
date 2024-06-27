@@ -4,6 +4,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import HeaderDefault from "../../components/header/HeaderComponent";
 import HomePage from "../HomePage/HomePage";
 import EmployeListPage from "../EmployeListPage/EmployeListPage";
+import LoginRegisterPage from "../LoginRegisterPage/LoginRegisterPage";
 
 const PrivateRoute = ({ element: Component }) => {
     const token = Cookies.get('token');
@@ -17,7 +18,9 @@ const DashboardPage = () => {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/dashboard" element={<HeaderDefault />} >
                     <Route index element={<HomePage />} />
+
                     <Route path="employees" element={<EmployeListPage />} />
+                    <Route path="register" element={<LoginRegisterPage /> }/>
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

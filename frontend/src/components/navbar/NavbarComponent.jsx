@@ -43,7 +43,8 @@ const HomeLink = styled(NavLink)``;
 const ProductsLink = styled(NavLink)``;
 const ProviderLink = styled(NavLink)``;
 const UsersLink = styled(NavLink)``;
-const AddUserModal = styled(ButtonAddUser)``;
+// const AddUserModal = styled(ButtonAddUser)``;
+const AddUserModal = styled(NavLink)``;
 
 const NavbarContainer = styled.div(() => [
   tw`w-full bg-gray-800 p-4 flex justify-between items-center shadow-lg`,
@@ -66,7 +67,7 @@ const NavbarDefault = () => {
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <ProviderLink to="/dashboard">Providers</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
-        <AddUserModal>Register</AddUserModal>
+        <AddUserModal to="/dashboard/register">Register</AddUserModal>
       </NavLinksContainer>
     </NavbarContainer>
   );

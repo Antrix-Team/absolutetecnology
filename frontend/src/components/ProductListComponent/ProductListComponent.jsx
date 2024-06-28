@@ -29,7 +29,7 @@ const ProductListComponent = () => {
             <table tw="table-auto w-full border-collapse border border-gray-300">
                 <thead>
                     <tr>
-                        <th tw="border px-4 py-2">Nombre</th>
+                        <th tw="border px-4 py-2 ">Nombre</th>
                         <th tw="border px-4 py-2">Descripción</th>
                         <th tw="border px-4 py-2">Marca</th>
                         <th tw="border px-4 py-2">Precio</th>
@@ -42,20 +42,20 @@ const ProductListComponent = () => {
                 </thead>
                 <tbody>
                     {Products.map((product) => (
-                        <tr key={product._id} tw="hover:bg-gray-100">
+                        <tr key={product._id}>
                             <td tw="border px-4 py-2">{product.name}</td>
                             <td tw="border px-4 py-2">{product.description}</td>
                             <td tw="border px-4 py-2">{product.brand}</td>
-                            <td tw="border px-4 py-2">{product.price}</td>
+                            <td tw="border px-4 py-2">${product.price}</td>
                             <td tw="border px-4 py-2">
                                 <img src={product.image} alt={product.name} tw="w-16 h-16 object-cover" />
                             </td>
-                            <td tw="border px-4 py-2">{product.categoryId}</td>
-                            <td tw="border px-4 py-2">{product.subCategoryId}</td>
-                            <td tw="border px-4 py-2">{product.status}</td>
-                            <td tw="border px-4 py-2">
-                                <button tw="bg-red-500 text-white px-2 py-1 rounded mr-2 hover:bg-red-700">Eliminar</button>
-                                <button tw="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-700">Actualizar</button>
+                            <td tw="border px-4 py-2">{product.categoryId.category}</td>
+                            <td tw="border px-4 py-2">{product.subCategoryId.subcategory}</td>
+                            <td tw="border px-4 py-2"><span tw="border-transparent bg-[#0568a6] text-white rounded-md inline-block w-auto px-2 py-1 text-xs text-center">{product.status}</span></td>
+                            <td tw="border px-4 py-2 " className="items">
+                                <button className="items" tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full ">Actualizar</button>
+                                <button className="items" tw="bg-[#065473] text-white px-2 py-1 rounded mr-2 w-full">Eliminar</button>
                             </td>
                         </tr>
                     ))}

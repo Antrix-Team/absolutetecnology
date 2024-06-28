@@ -3,7 +3,7 @@ import EmployeListComponent from "../../components/EmployeListComponent/EmployeL
 const EmployeListPage = () => {
     return (
         <div>
-            <h1>Página de Lista de Empleados</h1>
+            <h1 tw="text-2xl font-bold text-center my-4">Página de Lista de Empleados</h1>
             <EmployeListComponent />
         </div>
     );

@@ -34,6 +34,7 @@ const EmployeListComponent = () => {
                         <th tw="border px-4 py-2">Apellido</th>
                         <th tw="border px-4 py-2">Teléfono</th>
                         <th tw="border px-4 py-2">Carnet</th>
+                        <th tw="border px-4 py-2">acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@ const EmployeListComponent = () => {
                             <td tw="border px-4 py-2">{employee.middlename}</td>
                             <td tw="border px-4 py-2">{employee.phone}</td>
                             <td tw="border px-4 py-2">{employee.carnet}</td>
+                            <td tw="border px-4 py-2"><button>eliminar</button><th></th><button>actualizar</button></td>
                         </tr>
                     ))}
                 </tbody>

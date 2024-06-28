@@ -23,6 +23,21 @@ subcategoryRouter.post(
   validationMiddleware, 
   CreateSubcategory 
 );
+
+subcategoryRouter.put('/subcategories/:id', 
+  verifyToken, 
+  body('subcategory').optional().isString(), 
+  body('description').optional().isString(), 
+  body('categoryId').optional().isMongoId().custom(async (value) => {
+    const category = await CategoryModel.findById(value);
+    if (!category) {
+      throw new Error('La categoría especificada no existe.');
+    }
+  }),
+  validationMiddleware, 
+  UpdateSubcategory
+);
+
 subcategoryRouter.put('/subcategories/:id', verifyToken, UpdateSubcategory);
 subcategoryRouter.get('/subcategories', verifyToken, GetSubcategories);
 subcategoryRouter.get('/subcategories/:id', verifyToken, GetSubcategory);

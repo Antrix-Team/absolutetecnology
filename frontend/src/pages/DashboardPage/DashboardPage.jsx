@@ -8,8 +8,9 @@ import LoginRegisterPage from "../LoginRegisterPage/LoginRegisterPage";
 
 const PrivateRoute = ({ element: Component }) => {
     const token = Cookies.get('token');
+    console.log("Token from cookie:", token);
     return token ? <Component /> : <Navigate to="/" />;
-};
+  };
 
 const DashboardPage = () => {
     return (

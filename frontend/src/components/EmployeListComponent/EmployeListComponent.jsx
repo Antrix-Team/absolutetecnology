@@ -19,8 +19,10 @@ const EmployeListComponent = () => {
             <button onClick={() => handleSearch(searchTerm)}>Buscar</button>
             <ul>
                 {employees.map((employee) => (
+                    
                     <li key={employee._id}>
-                        {employee.name} - {employee.email} 
+                        
+                        {employee.name} {employee.middlename} - {employee.phone} - {employee.carnet} 
                     </li>
                 ))}
             </ul>

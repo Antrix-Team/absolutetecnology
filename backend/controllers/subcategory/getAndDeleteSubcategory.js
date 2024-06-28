@@ -37,22 +37,25 @@ export const GetSubcategory = async (req, res) => {
 };
 
 export const DeleteSubcategory = async (req, res) => {
-    const { id } = req.params;
-    try {
-      const subcategory = await SubcategoryModel.findOne({ _id: id, status: "ACTIVE" });
-      if (!subcategory) {
-        return res.status(404).json({ message: "Subcategoria no encontrada" });
-      }
-  
-      // Eliminar todos los productos asociados a la subcategoría
-      await ProductModel.updateMany({ subCategoryId: id, status: "ACTIVE" }, { status: "INACTIVE" });
-  
-      // Eliminar la subcategoría
-      subcategory.status = "INACTIVE";
-      await subcategory.save();
-  
-      res.json({ message: "La subcategoría y los productos relacionados se eliminaron correctamente" });
-    } catch (error) {
-      res.status(500).json({ message: "Server error" });
+  const { id } = req.params;
+  try {
+    const subcategory = await SubcategoryModel.findOne({ _id: id, status: "ACTIVE" });
+    if (!subcategory) {
+      return res.status(404).json({ message: "Subcategoria no encontrada" });
     }
-  };
+
+    // Verificar si hay productos asociados a la subcategoría
+    const productsUsingSubcategory = await ProductModel.find({ subCategoryId: id, status: "ACTIVE" });
+    if (productsUsingSubcategory.length > 0) {
+      return res.status(400).json({ message: "Cannot delete subcategory as it is associated with active products." });
+    }
+
+    // Inactivar la subcategoría
+    subcategory.status = "INACTIVE";
+    await subcategory.save();
+
+    res.json({ message: "Subcategoria eliminada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};

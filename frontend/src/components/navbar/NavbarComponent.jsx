@@ -28,8 +28,8 @@ const NavLink = styled(Link)(() => [
   `,
 ]);
 
-const ButtonAddUser = styled.button(() => [
-  tw`bg-blue-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300`,
+const ButtonAddUser = styled(Link)(() => [
+  tw`bg-blue-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4`,
   css`
     font-family: 'Arial', sans-serif;
     &:hover {
@@ -43,8 +43,7 @@ const HomeLink = styled(NavLink)``;
 const ProductsLink = styled(NavLink)``;
 const ProviderLink = styled(NavLink)``;
 const UsersLink = styled(NavLink)``;
-// const AddUserModal = styled(ButtonAddUser)``;
-const AddUserModal = styled(NavLink)``;
+const AddUserModal = styled(ButtonAddUser)``;
 
 const NavbarContainer = styled.div(() => [
   tw`w-full bg-gray-800 p-4 flex justify-between items-center shadow-lg`,
@@ -67,10 +66,10 @@ const NavbarDefault = () => {
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <ProviderLink to="/dashboard">Providers</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
-        <AddUserModal to="/dashboard/register">Register</AddUserModal>
+        <AddUserModal to="/dashboard/register">Create user</AddUserModal>
       </NavLinksContainer>
     </NavbarContainer>
   );
-}
+};
 
 export default NavbarDefault;

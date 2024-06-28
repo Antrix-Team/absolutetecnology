@@ -7,10 +7,10 @@ dotenv.config();
 
 
 const CreateNewUser = async (req, res) => {
-    const { name, middlename, mail, username, passw } = req.body;
+    const { name, middlename, mail, username, phone, carnet, passw } = req.body;
     try {
         const hashpasw = await bcrypt.hash(passw, 10); 
-        const NewUserAdd = new UserModel({ name, middlename, mail, username, passw: hashpasw });
+        const NewUserAdd = new UserModel({ name, middlename, mail, username, phone, carnet, passw: hashpasw });
         await NewUserAdd.save();
         
         
@@ -27,10 +27,10 @@ const CreateNewUser = async (req, res) => {
 
 
 const UpdateUserById = async (req, res) => {
-    const { name, middlename, mail, username, passw } = req.body;
+    const { name, middlename, mail, username, phone, carnet, passw } = req.body;
     const id = req.params.id;
     try {
-        const updateUser = await UserModel.findByIdAndUpdate(id, { name, middlename, mail, username, passw }, { new: true });
+        const updateUser = await UserModel.findByIdAndUpdate(id, { name, middlename, mail, username, phone, carnet, passw }, { new: true });
         res.status(200).json(updateUser);
         console.log("user update is success");
     } catch (error) {

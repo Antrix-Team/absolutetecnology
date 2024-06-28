@@ -33,6 +33,6 @@ export const CreateSubcategory = async (req, res) => {
     res.status(201).json(newSubcategory);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error en el servidor.' });
+    res.status(500).json({ message: 'Server error.' });
   }
 };

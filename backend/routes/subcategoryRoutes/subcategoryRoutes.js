@@ -5,6 +5,7 @@ import { CreateSubcategory } from '../../controllers/subcategory/CreateSubcatego
 import { GetSubcategories, GetSubcategory, DeleteSubcategory } from '../../controllers/subcategory/getAndDeleteSubcategory.js';
 import { validationMiddleware } from '../../middlewares/validationMiddleware.js';
 import CategoryModel from '../../models/category/categoryModel.js';
+import { UpdateSubcategory } from '../../controllers/subcategory/UpdateSubcategoryController.js';
 
 const subcategoryRouter = Router();
 
@@ -22,7 +23,7 @@ subcategoryRouter.post(
   validationMiddleware, 
   CreateSubcategory 
 );
-
+subcategoryRouter.put('/subcategories/:id', verifyToken, UpdateSubcategory);
 subcategoryRouter.get('/subcategories', verifyToken, GetSubcategories);
 subcategoryRouter.get('/subcategories/:id', verifyToken, GetSubcategory);
 subcategoryRouter.delete('/subcategories/:id', verifyToken, DeleteSubcategory);

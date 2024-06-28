@@ -1,14 +1,12 @@
-import React from 'react'
-import LoginRegister from '../../components/LoginRegister/LoginRegister'
+import React from "react";
+import LoginRegister from "../../components/LoginRegister/LoginRegister";
 
 const LoginRegisterPage = () => {
     return (
-        <div className="bodyRegister">
-            
-                <LoginRegister />
-           
+        <div>
+            <LoginRegister />
         </div>
-    )
-}
+    );
+};
 
-export default LoginRegisterPage
+export default LoginRegisterPage;

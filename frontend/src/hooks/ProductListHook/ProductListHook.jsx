@@ -4,6 +4,7 @@ import ProductListProvider from "../../api/ProductListProvider/ProductListProvid
 
 const userProductList = () => {
     const [Products, setProducts] = useState([]);
+    const [isModelOpen, setIsModelOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
@@ -36,7 +37,21 @@ const userProductList = () => {
         setProducts(filteredProducts);
     };
 
-    return { Products, loading, error, searchTerm, setSearchTerm, handleSearch };
+    const handleCreateProduct = (event) => {
+        event.preventDefault();
+        console.log("Adding product");
+    }
+
+    const openModal = () => {
+        console.log("HELLO")
+        setIsModelOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModelOpen(false);
+    }
+
+    return { Products, loading, error, searchTerm, setSearchTerm, handleSearch,handleCreateProduct, isModelOpen, setIsModelOpen, openModal, closeModal };
 };
 
 export default userProductList;

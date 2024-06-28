@@ -1,15 +1,20 @@
 import tw from "twin.macro";
 import useProductList from "../../hooks/ProductListHook/ProductListHook";
+import { CreateProductModal } from "../ModalProduct/CreateProductModal";
 
 const ProductListComponent = () => {
-    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch } = useProductList();
+    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch, handleCreateProduct, closeModal, openModal, isModelOpen} = useProductList();
 
     if (loading) return <div tw="text-center mt-4">Cargando...</div>;
     if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
 
     return (
         <div tw="container mx-auto p-4">
-            <h2 tw="text-xl font-semibold mb-4">Lista de Productos</h2>
+            <div tw="flex justify-between mb-4">
+                <h2 tw="text-xl font-semibold mb-4">Lista de Productos</h2>
+                <button onClick={openModal} tw="px-2 py-1 rounded-md bg-[#0568a6] text-white">Agregar producto</button>
+            </div>
+            <CreateProductModal isModalOpen={isModelOpen} onClose={closeModal} />
             <div tw="flex items-center mb-4">
                 <input
                     type="text"
@@ -21,7 +26,7 @@ const ProductListComponent = () => {
                 />
                 <button
                     onClick={() => handleSearch(searchTerm)}
-                    tw="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-700"
+                    tw="bg-[#0568a6] text-white px-4 py-2 rounded-r hover:bg-blue-700"
                 >
                     Buscar
                 </button>

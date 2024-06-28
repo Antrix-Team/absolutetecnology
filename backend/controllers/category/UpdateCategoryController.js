@@ -9,7 +9,7 @@ export const UpdateCategory = async (req, res) => {
     const existingCategory = await CategoryModel.findOne({ _id: id, status: "ACTIVE" });
 
     if (!existingCategory) {
-      return res.status(404).json({ message: "Category not found" });
+      return res.status(404).json({ message: "Categoria no encontrada" });
     }
 
     existingCategory.category = category || existingCategory.category;
@@ -19,7 +19,7 @@ export const UpdateCategory = async (req, res) => {
 
     await existingCategory.save();
 
-    res.json({ message: "Category updated successfully", category: existingCategory });
+    res.json({ message: "Categoría actualizada con éxito", category: existingCategory });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

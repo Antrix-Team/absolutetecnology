@@ -10,10 +10,9 @@ export const UpdateSubcategory = async (req, res) => {
     const existingSubcategory = await SubcategoryModel.findOne({ _id: id, status: "ACTIVE" });
 
     if (!existingSubcategory) {
-      return res.status(404).json({ message: "Subcategory not found" });
+      return res.status(404).json({ message: "Subcategoria no encontrada" });
     }
 
-    // Verificar si la nueva categoría existe
     if (categoryId) {
       const category = await CategoryModel.findById(categoryId);
       if (!category) {
@@ -29,7 +28,7 @@ export const UpdateSubcategory = async (req, res) => {
 
     await existingSubcategory.save();
 
-    res.json({ message: "Subcategory updated successfully", subcategory: existingSubcategory });
+    res.json({ message: "Subcategoría actualizada con exito", subcategory: existingSubcategory });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

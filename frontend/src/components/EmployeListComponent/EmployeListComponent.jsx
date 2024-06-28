@@ -44,7 +44,10 @@ const EmployeListComponent = () => {
                             <td tw="border px-4 py-2">{employee.middlename}</td>
                             <td tw="border px-4 py-2">{employee.phone}</td>
                             <td tw="border px-4 py-2">{employee.carnet}</td>
-                            <td tw="border px-4 py-2"><button>eliminar</button><th></th><button>actualizar</button></td>
+                            <td tw="border px-4 py-2">
+                                <button tw="bg-red-500 text-white px-2 py-1 rounded mr-2 hover:bg-red-700">Eliminar</button>
+                                <button tw="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-700">Actualizar</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

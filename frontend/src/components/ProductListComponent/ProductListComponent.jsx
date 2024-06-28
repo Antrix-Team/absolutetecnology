@@ -1,8 +1,8 @@
 import tw from "twin.macro";
-import userProductList from "../../hooks/ProductListHook/ProductListHook";
+import useProductList from "../../hooks/ProductListHook/ProductListHook";
 
 const ProductListComponent = () => {
-    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch } = userProductList();
+    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch } = useProductList();
 
     if (loading) return <div tw="text-center mt-4">Cargando...</div>;
     if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
@@ -31,12 +31,12 @@ const ProductListComponent = () => {
                     <tr>
                         <th tw="border px-4 py-2">Nombre</th>
                         <th tw="border px-4 py-2">Descripción</th>
-                        <th tw="border px-4 py-2">brand</th>
-                        <th tw="border px-4 py-2">precio</th>
-                        <th tw="border px-4 py-2">imagen</th>
-                        <th tw="border px-4 py-2">Categoria</th>
-                        <th tw="border px-4 py-2">Sub categoria</th>
-                        <th tw="border px-4 py-2">Status</th>
+                        <th tw="border px-4 py-2">Marca</th>
+                        <th tw="border px-4 py-2">Precio</th>
+                        <th tw="border px-4 py-2">Imagen</th>
+                        <th tw="border px-4 py-2">Categoría</th>
+                        <th tw="border px-4 py-2">Subcategoría</th>
+                        <th tw="border px-4 py-2">Estado</th>
                         <th tw="border px-4 py-2">Acciones</th>
                     </tr>
                 </thead>
@@ -47,13 +47,16 @@ const ProductListComponent = () => {
                             <td tw="border px-4 py-2">{product.description}</td>
                             <td tw="border px-4 py-2">{product.brand}</td>
                             <td tw="border px-4 py-2">{product.price}</td>
-                            <td tw="border px-4 py-2">{product.image}</td>
-                            <td tw="border px-4 py-2">{product.CategoryId}</td>
+                            <td tw="border px-4 py-2">
+                                <img src={product.image} alt={product.name} tw="w-16 h-16 object-cover" />
+                            </td>
+                            <td tw="border px-4 py-2">{product.categoryId}</td>
                             <td tw="border px-4 py-2">{product.subCategoryId}</td>
                             <td tw="border px-4 py-2">{product.status}</td>
-                            <td tw="border px-4 py-2"><button>eliminar</button><button>actualizar</button></td>
-
-                            
+                            <td tw="border px-4 py-2">
+                                <button tw="bg-red-500 text-white px-2 py-1 rounded mr-2 hover:bg-red-700">Eliminar</button>
+                                <button tw="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-700">Actualizar</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -63,4 +66,3 @@ const ProductListComponent = () => {
 };
 
 export default ProductListComponent;
-

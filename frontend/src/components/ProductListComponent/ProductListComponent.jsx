@@ -50,8 +50,8 @@ const ProductListComponent = () => {
                             <td tw="border px-4 py-2">
                                 <img src={product.image} alt={product.name} tw="w-16 h-16 object-cover" />
                             </td>
-                            <td tw="border px-4 py-2">{product.categoryId.category}</td>
-                            <td tw="border px-4 py-2">{product.subCategoryId.subcategory}</td>
+                            <td tw="border px-4 py-2">{product.categoryId ? product.categoryId.category : "Sin categoría"}</td>
+                            <td tw="border px-4 py-2">{product.subCategoryId ? product.subCategoryId.subcategory : "Sin subcategoría"}</td>
                             <td tw="border px-4 py-2"><span tw="border-transparent bg-[#0568a6] text-white rounded-md inline-block w-auto px-2 py-1 text-xs text-center">{product.status}</span></td>
                             <td tw="border px-4 py-2 " className="items">
                                 <button className="items" tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full ">Actualizar</button>

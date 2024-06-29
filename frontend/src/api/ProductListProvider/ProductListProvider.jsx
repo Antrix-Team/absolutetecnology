@@ -19,4 +19,23 @@ const ProductListProvider = async () => {
     }
 };
 
-export default ProductListProvider;
+const CreateProduct = async(formData) => {
+    try {
+        const response = await axios.post(`${urlemployee}/products`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+            withCredentials: true
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.log(error);
+        if(error.response.status === 401) {
+            throw new Error("Sesión expirada o no autorizada. Por favor inicie sesión nuevamente");
+        }
+    }
+} 
+
+export {ProductListProvider, CreateProduct};

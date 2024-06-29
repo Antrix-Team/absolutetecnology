@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProductListProvider from "../../api/ProductListProvider/ProductListProvider";
+import {ProductListProvider} from "../../api/ProductListProvider/ProductListProvider";
 
 const useProductList = () => {
     const [Products, setProducts] = useState([]);
@@ -61,7 +61,7 @@ const useProductList = () => {
         setIsModelOpen(false);
     }
 
-    return { Products, loading, error, searchTerm, setSearchTerm, handleSearch,handleCreateProduct, isModelOpen, setIsModelOpen, openModal, closeModal };
+    return { Products, loading, error, searchTerm, setSearchTerm, handleSearch,handleCreateProduct, isModelOpen, setIsModelOpen, openModal, closeModal, setProducts };
 };
 
 export default useProductList;

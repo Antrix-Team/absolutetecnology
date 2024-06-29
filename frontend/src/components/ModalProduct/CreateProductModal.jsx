@@ -1,12 +1,25 @@
 import tw from "twin.macro";
 import  useCreateProduct from "../../hooks/ProductListHook/CreateProductHook";
 
-export const CreateProductModal = ({isModalOpen, onClose}) => {
-  const { categories, handleCreateProduct, setSelectCategory,subCategories, setSelectSubCategory, createProduct, setCreateProduct, setImage } = useCreateProduct();
-  if(isModalOpen !== true) return null;
+export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
+  const { categories, handleCreateProduct, setSelectCategory,subCategories, setSelectSubCategory, createProduct, setCreateProduct, setImage, errorImage, setErrorImage, errorForm, setErrorForm } = useCreateProduct();
+
+  const handleImage = (e) => {
+    const typeImage = e.target.files[0].type.split("/")[1];
+    const typesAllowed = ["jpg", "jpeg", "png", "webp"];
+    if(!typesAllowed.includes(typeImage)) {
+      setErrorImage("Formato de imagen no permitido");
+      setErrorForm("");
+      return;
+    }
+    setImage(e.target.files[0])
+    setErrorImage("")
+    console.log(e.target.files[0])
+  }
+
   return (
     <div tw="fixed left-0 top-0 right-0 bottom-0 bg-[rgba(0, 0, 0, 0.8)] flex flex-col items-center justify-center">
-      <form onSubmit={handleCreateProduct} tw="w-1/2 border-2 border-transparent rounded-md bg-white h-auto px-4 py-6">
+      <form onSubmit={(e) => handleCreateProduct(e, setIsModelOpen, setProducts)} tw="w-1/2 border-2 border-transparent rounded-md bg-white h-auto px-4 py-6">
         <h2 tw="text-center text-2xl">Crear producto</h2>
         <div tw="w-full my-3">
           <input 
@@ -61,9 +74,15 @@ export const CreateProductModal = ({isModalOpen, onClose}) => {
             }
           </select>
         </div>
-        <div tw="w-full my-3 flex gap-8">
-          <input type="file" tw="bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-2"/>
+        <div tw="w-full my-3 flex flex-col">
+          <input 
+            type="file" 
+            tw="bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-2 w-1/2"
+            onChange={handleImage}
+            />
+            {errorImage && <p tw="text-red-400">{errorImage}</p>}
         </div>
+        {errorForm && <div tw="w-full my-3 flex text-red-400">{errorForm}</div>}
         <div tw="w-full my-3 flex gap-8">
           <button tw="w-full bg-[#042f40] text-white border-transparent text-sm rounded-md py-3 px-2">
             Crear

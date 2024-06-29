@@ -52,7 +52,16 @@ export const CreateProduct = async (req, res) => {
 
     await newProduct.save();
 
-    res.status(201).json(newProduct);
+    const populateQuery = [
+      { path: "categoryId", select: "_id category description" },
+      { path: "subCategoryId", select: "_id subcategory description" },
+    ];
+
+    const getProduct = await ProductModel.findById(newProduct._id).populate(
+      populateQuery
+    );
+
+    res.status(201).json(getProduct);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

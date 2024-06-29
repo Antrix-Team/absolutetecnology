@@ -3,7 +3,7 @@ import useProductList from "../../hooks/ProductListHook/ProductListHook";
 import { CreateProductModal } from "../ModalProduct/CreateProductModal";
 
 const ProductListComponent = () => {
-    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch, handleCreateProduct, closeModal, openModal, isModelOpen} = useProductList();
+    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch,setIsModelOpen, closeModal, openModal, isModelOpen, setProducts} = useProductList();
 
     if (loading) return <div tw="text-center mt-4">Cargando...</div>;
     if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
@@ -14,7 +14,7 @@ const ProductListComponent = () => {
                 <h2 tw="text-xl font-semibold mb-4">Lista de Productos</h2>
                 <button onClick={openModal} tw="px-2 py-1 rounded-md bg-[#0568a6] text-white">Agregar producto</button>
             </div>
-            {isModelOpen && <CreateProductModal isModalOpen={isModelOpen} onClose={closeModal} />}
+            {isModelOpen && <CreateProductModal setIsModelOpen={setIsModelOpen} onClose={closeModal} setProducts={setProducts} />}
             <div tw="flex items-center mb-4">
                 <input
                     type="text"

@@ -1,8 +1,18 @@
+import React, { useState } from "react";
 import tw from "twin.macro";
 import useProductList from "../../hooks/ProductListHook/ProductListHook";
 
 const ProductListComponent = () => {
     const { Products, loading, error, searchTerm, setSearchTerm } = useProductList();
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const openImageModal = (image) => {
+        setSelectedImage(image);
+    };
+
+    const closeImageModal = () => {
+        setSelectedImage(null);
+    };
 
     if (loading) return <div tw="text-center mt-4">Cargando...</div>;
     if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
@@ -42,7 +52,13 @@ const ProductListComponent = () => {
                                 <td tw="border px-4 py-2">{product.brand}</td>
                                 <td tw="border px-4 py-2">${product.price}</td>
                                 <td tw="border px-4 py-2">
-                                    <img src={product.image} alt={product.name} tw="w-24 h-16 object-cover" />
+                                    <img src={product.image} alt={product.name} tw="w-36 h-16 object-cover" />
+                                    <button 
+                                        tw="bg-[#077F8C] text-white px-2 py-1 rounded mt-2 w-full"
+                                        onClick={() => openImageModal(product.image)}
+                                    >
+                                        Ver
+                                    </button>
                                 </td>
                                 <td tw="border px-4 py-2">{product.categoryId?.category}</td>
                                 <td tw="border px-4 py-2">{product.subCategoryId?.subcategory}</td>
@@ -64,6 +80,20 @@ const ProductListComponent = () => {
                     </tbody>
                 </table>
             </div>
+
+            {selectedImage && (
+                <div tw="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div tw="bg-white p-4 rounded shadow-lg max-w-lg w-full">
+                        <img src={selectedImage} alt="Product" tw="w-full h-auto" />
+                        <button 
+                            tw="bg-red-500 text-white px-4 py-2 rounded mt-4"
+                            onClick={closeImageModal}
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

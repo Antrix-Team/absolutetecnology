@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductListProvider from "../../api/ProductListProvider/ProductListProvider";
 
-const userProductList = () => {
+const useProductList = () => {
     const [Products, setProducts] = useState([]);
     const [isModelOpen, setIsModelOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -24,17 +24,27 @@ const userProductList = () => {
             setError(err.message);
             if (err.message.includes('Sesión expirada') || err.message.includes('no autorizada')) {
                 navigate('/');
+            } else {
+                setError('Error en la carga de datos');
             }
         } finally {
             setLoading(false);
         }
     };
 
+    useEffect(() => {
+        handleSearch(searchTerm);
+    }, [searchTerm]);
+
     const handleSearch = (term) => {
-        const filteredProducts = Products.filter((product) =>
-            product.name.includes(term)
-        );
-        setProducts(filteredProducts);
+        if (!term) {
+            fetchProducts();  
+        } else {
+            const filteredProducts = Products.filter((product) =>
+                product.name.toLowerCase().includes(term.toLowerCase())
+            );
+            setProducts(filteredProducts);
+        }
     };
 
     const handleCreateProduct = (event) => {
@@ -54,4 +64,4 @@ const userProductList = () => {
     return { Products, loading, error, searchTerm, setSearchTerm, handleSearch,handleCreateProduct, isModelOpen, setIsModelOpen, openModal, closeModal };
 };
 
-export default userProductList;
+export default useProductList;

@@ -38,26 +38,34 @@ export const GetCategory = async (req, res) => {
 };
 
 export const DeleteCategory = async (req, res) => {
-    const { id } = req.params;
-    try {
-      const category = await CategoryModel.findOne({ _id: id, status: "ACTIVE" });
-      if (!category) {
-        return res.status(404).json({ message: "Categoria no encontrada" });
-      }
-  
-      // Eliminar todas las subcategorías asociadas
-      await SubcategoryModel.updateMany({ category: id, status: "ACTIVE" }, { status: "INACTIVE" });
-  
-      // Eliminar todos los productos asociados a las subcategorías
-      const subcategories = await SubcategoryModel.find({ category: id });
-      const subcategoryIds = subcategories.map(subcategory => subcategory._id);
-      await ProductModel.updateMany({ subCategoryId: { $in: subcategoryIds }, status: "ACTIVE" }, { status: "INACTIVE" });
-  
-      category.status = "INACTIVE";
-      await category.save();
-  
-      res.json({ message: "Categoría, subcategorías y productos relacionados eliminados correctamente" });
-    } catch (error) {
-      res.status(500).json({ message: "Server error" });
+  const { id } = req.params;
+  try {
+    const category = await CategoryModel.findOne({ _id: id, status: "ACTIVE" });
+    if (!category) {
+      return res.status(404).json({ message: "Categoria no encontrada" });
     }
-  };
+
+    // Verificar si hay subcategorías asociadas a productos
+    const subcategories = await SubcategoryModel.find({ category: id });
+    const subcategoryIds = subcategories.map(subcategory => subcategory._id);
+    const productsUsingCategory = await ProductModel.find({ 
+      $or: [{ categoryId: id }, { subCategoryId: { $in: subcategoryIds } }],
+      status: "ACTIVE"
+    });
+
+    if (productsUsingCategory.length > 0) {
+      return res.status(400).json({ message: "No se puede eliminar la categoría, ya que está asociada a productos activos." });
+    }
+
+    // Inactivar todas las subcategorías asociadas
+    await SubcategoryModel.updateMany({ category: id, status: "ACTIVE" }, { status: "INACTIVE" });
+
+    // Inactivar la categoría
+    category.status = "INACTIVE";
+    await category.save();
+
+    res.json({ message: "La categoría y las subcategorías relacionadas se eliminaron correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};

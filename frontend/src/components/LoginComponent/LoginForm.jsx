@@ -28,7 +28,6 @@ const LoginForm = ({ username, setUsername, password, setPassword, error, handle
             </div>
 
             <div className="remember-forgot">
-                <label><input type="checkbox" />Remember me</label>
                 <a href="#">¿Has olvidado tu contraseña?</a>
             </div>
 

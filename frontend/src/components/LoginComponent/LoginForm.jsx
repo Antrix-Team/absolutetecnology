@@ -1,4 +1,6 @@
+// src/components/LoginForm.jsx
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./LoginForm.css";
 
 const LoginForm = ({ username, setUsername, password, setPassword, error, handleSubmit }) => {
@@ -28,7 +30,7 @@ const LoginForm = ({ username, setUsername, password, setPassword, error, handle
             </div>
 
             <div className="remember-forgot">
-                <a href="#">¿Has olvidado tu contraseña?</a>
+                <Link to="/forgot-password">¿Has olvidado tu contraseña?</Link>
             </div>
 
             <button type='submit'>Acceder</button>

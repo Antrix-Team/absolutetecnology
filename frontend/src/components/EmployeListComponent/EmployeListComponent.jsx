@@ -46,8 +46,8 @@ const EmployeListComponent = () => {
                             <td tw="border px-4 py-2 text-gray-700">{employee.carnet}</td>
                             <td tw="border px-4 py-2 text-center">
                                 <div tw="flex flex-col items-center space-y-2">
-                                    <button tw="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 focus:outline-none w-full">Actualizar</button>
-                                    <button tw="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 focus:outline-none w-full">Eliminar</button>
+                                    <button tw="bg-yellow-400 text-black px-0.5 py-1 rounded hover:bg-yellow-500 focus:outline-none w-full">Actualizar</button>
+                                    <button tw="bg-red-500 text-black px-0.5 py-1 rounded hover:bg-red-600 focus:outline-none w-full">Eliminar</button>
                                 </div>
                             </td>
                         </tr>

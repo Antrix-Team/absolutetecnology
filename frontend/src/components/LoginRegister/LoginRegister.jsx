@@ -17,6 +17,7 @@ const LoginRegister = () => {
     });
 
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,6 +29,8 @@ const LoginRegister = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setError('');
+        setSuccess('');
         try {
             const response = await axios.post('http://localhost:3000/api/userregister', formData, {
                 headers: {
@@ -37,6 +40,16 @@ const LoginRegister = () => {
             
             if (response.data.token) {
                 Cookies.set('token', response.data.token, { path: '/' });
+                setSuccess('Usuario registrado exitosamente.');
+                setFormData({
+                    name: '',
+                    middlename: '',
+                    mail: '',
+                    username: '',
+                    phone: '',
+                    carnet: '',
+                    passw: ''
+                });
             } else {
                 throw new Error('No se recibió token del servidor');
             }
@@ -72,14 +85,14 @@ const LoginRegister = () => {
                     </div>
                     <div className='input-box'>
                         <input type="text" name="carnet" placeholder='Carnet' value={formData.carnet} onChange={handleChange} required />
-                        {/* Use a valid license icon component */}
                     </div>
                     <div className='input-box'>
                         <input type="password" name="passw" placeholder='Contraseña' value={formData.passw} onChange={handleChange} required />
                         <FaLock className='icon' />
                     </div>
                     <button type='submit'>Registrar</button>
-                    {error && <p>{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
+                    {success && <p className="success-message">{success}</p>}
                 </form>
             </div>
         </div>

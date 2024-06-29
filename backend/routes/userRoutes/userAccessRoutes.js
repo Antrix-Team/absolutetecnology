@@ -17,12 +17,19 @@ import {
 } from "../../controllers/admin/ResetPasswordController.js";
 import AccessLogin from "../../controllers/admin/AccessUserController.js";
 
+import UserLogoutController from "../../controllers/admin/LogoutController.js";
+
+
+
 dotenv.config();
 
 const routesUserAccess = express.Router();
 
 // Endpoint de registro
 routesUserAccess.post('/userregister', verifyToken, CreateNewUser);
+
+//Endpoint para cerrar la sesión
+routesUserAccess.post('/logout',  UserLogoutController);
 
 // Endpoint para obtener un usuario por id
 routesUserAccess.get('/users/:id', verifyToken, GetUserById);

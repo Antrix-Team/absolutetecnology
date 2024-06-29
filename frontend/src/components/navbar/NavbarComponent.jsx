@@ -1,6 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import tw, { styled, css } from 'twin.macro';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+axios.defaults.withCredentials = true;
+const urllogout = import.meta.env.VITE_URL;
+
 
 // Estiliza el componente NavLink
 const NavLink = styled(Link)(() => [
@@ -58,6 +64,20 @@ const NavLinksContainer = styled.div(() => [
 ]);
 
 const NavbarDefault = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${urllogout}/logout`);
+
+      localStorage.removeItem('token');
+
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <NavbarContainer>
       <Logo>logo</Logo>
@@ -67,6 +87,9 @@ const NavbarDefault = () => {
         <ProviderLink to="/dashboard">Providers</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
         <AddUserModal to="/dashboard/register">Create user</AddUserModal>
+        <button onClick={handleLogout} tw="bg-red-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4">
+          Logout
+        </button>
       </NavLinksContainer>
     </NavbarContainer>
   );

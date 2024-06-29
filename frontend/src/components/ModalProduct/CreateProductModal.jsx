@@ -2,23 +2,42 @@ import tw from "twin.macro";
 import  useCreateProduct from "../../hooks/ProductListHook/CreateProductHook";
 
 export const CreateProductModal = ({isModalOpen, onClose}) => {
-  const { categories, handleCreateCategory, setSelectCategory } = useCreateProduct();
+  const { categories, handleCreateProduct, setSelectCategory,subCategories, setSelectSubCategory, createProduct, setCreateProduct, setImage } = useCreateProduct();
   if(isModalOpen !== true) return null;
   return (
     <div tw="fixed left-0 top-0 right-0 bottom-0 bg-[rgba(0, 0, 0, 0.8)] flex flex-col items-center justify-center">
-      <form onSubmit={handleCreateCategory} tw="w-1/2 border-2 border-transparent rounded-md bg-white h-auto px-4 py-6">
+      <form onSubmit={handleCreateProduct} tw="w-1/2 border-2 border-transparent rounded-md bg-white h-auto px-4 py-6">
         <h2 tw="text-center text-2xl">Crear producto</h2>
         <div tw="w-full my-3">
-          <input type="text" required placeholder="Nombre del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+          <input 
+            type="text"
+            onChange={(e) => setCreateProduct({...createProduct, name: e.target.value})}
+            required 
+            placeholder="Nombre del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
         </div>
         <div tw="w-full my-3">
-          <input type="text" required placeholder="Descripción del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+          <input 
+            type="text" 
+            required
+            onChange={(e) => setCreateProduct({...createProduct, description: e.target.value})}
+            placeholder="Descripción del producto" 
+            tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
         </div>
         <div tw="w-full my-3">
-          <input type="text" required placeholder="Marca del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+          <input 
+            type="text" 
+            required 
+            placeholder="Marca del producto" 
+            onChange={(e) => setCreateProduct({...createProduct, brand: e.target.value})}
+            tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
         </div>
         <div tw="w-full my-3">
-          <input type="text" required placeholder="Precio del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+          <input 
+            type="text" 
+            required 
+            placeholder="Precio del producto" 
+            onChange={(e) => setCreateProduct({...createProduct, price: Number(e.target.value)})}
+            tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
         </div>
         <div tw="w-full my-3 flex gap-8">
           <select onChange={(e) => setSelectCategory(e.target.value)} tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3">
@@ -29,8 +48,17 @@ export const CreateProductModal = ({isModalOpen, onClose}) => {
               ))
             }
           </select>
-          <select tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3">
-            <option tw="text-center" defaultValue="" disabled>-- Seleccionar una subcategoria --</option>
+          <select 
+            tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" 
+            disabled={subCategories.length === 0}
+            onChange= {(e) => setSelectSubCategory(e.target.value)}
+            >
+            <option tw="text-center" defaultValue="">-- Seleccionar una subcategoria --</option>
+            {
+              subCategories.map((subcategory) =>(
+                <option key={subcategory._id} value={subcategory._id}>{subcategory.subcategory}</option>
+              ))
+            }
           </select>
         </div>
         <div tw="w-full my-3 flex gap-8">

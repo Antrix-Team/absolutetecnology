@@ -14,7 +14,7 @@ const ProductListComponent = () => {
                 <h2 tw="text-xl font-semibold mb-4">Lista de Productos</h2>
                 <button onClick={openModal} tw="px-2 py-1 rounded-md bg-[#0568a6] text-white">Agregar producto</button>
             </div>
-            <CreateProductModal isModalOpen={isModelOpen} onClose={closeModal} />
+            {isModelOpen && <CreateProductModal isModalOpen={isModelOpen} onClose={closeModal} />}
             <div tw="flex items-center mb-4">
                 <input
                     type="text"

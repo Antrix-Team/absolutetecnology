@@ -44,8 +44,8 @@ const ProductListComponent = () => {
                                 <td tw="border px-4 py-2">
                                     <img src={product.image} alt={product.name} tw="w-16 h-16 object-cover" />
                                 </td>
-                                <td tw="border px-4 py-2">{product.categoryId.category}</td>
-                                <td tw="border px-4 py-2">{product.subCategoryId.subcategory}</td>
+                                <td tw="border px-4 py-2">{product.categoryId?.category}</td>
+                                <td tw="border px-4 py-2">{product.subCategoryId?.subcategory}</td>
                                 <td tw="border px-4 py-2">
                                     <span tw="bg-[#0568a6] text-white rounded-md px-2 py-1 text-xs">
                                         {product.status}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import tw from "twin.macro";
+import { Link } from "react-router-dom";
 import useProductList from "../../hooks/ProductListHook/ProductListHook";
 import { CreateProductModal } from "../ModalProduct/CreateProductModal";
 import ButtonDeleteProductComponent from "../ButtonDeleteProductComponent/ButtonDeleteProductComponent";
@@ -84,9 +85,9 @@ const ProductListComponent = () => {
                                     </span>
                                 </td>
                                 <td tw="border px-4 py-2">
-                                    <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full">
+                                    <Link to={`/dashboard/update/${product._id}`} tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full inline-block text-center">
                                         Actualizar
-                                    </button>
+                                    </Link>
                                     <ButtonDeleteProductComponent productId={product._id} onDelete={handleDeleteProduct} />
                                 </td>
                             </tr>

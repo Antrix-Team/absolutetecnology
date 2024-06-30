@@ -29,8 +29,17 @@ export const GetProducts = async (req, res) => {
 
 export const GetProduct = async (req, res) => {
   const { id } = req.params;
+
+  const populateQuery = [
+    { path: "categoryId", select: "_id category description" },
+    { path: "subCategoryId", select: "_id subcategory description" },
+  ];
+
   try {
-    const product = await ProductModel.findOne({ _id: id, status: "ACTIVE" });
+    const product = await ProductModel.findOne({
+      _id: id,
+      status: "ACTIVE",
+    }).populate(populateQuery);
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" });

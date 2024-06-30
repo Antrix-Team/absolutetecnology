@@ -8,6 +8,7 @@ import ProductListPage from "../ProductPage/ProductPage";
 import ForgotPasswordPage from "../ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 import PrivateRoute from '../../components/PrivateRoute';
+import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 
 
 
@@ -28,6 +29,7 @@ const DashboardPage = () => {
           <Route path="products" element={<ProductListPage />} />
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />
+          <Route path="update/:id" element={<UpdateProductPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

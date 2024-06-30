@@ -43,7 +43,11 @@ productRouter.post(
 productRouter.put(
   "/products/:id",
   verifyToken,
-  body("description").optional().isString().isLength({ min: 10 }),
+  body("description")
+    .optional()
+    .isString()
+    .isLength({ min: 10 })
+    .withMessage("Descripción debe tener al menos 10 caracteres"),
   body("brand").optional().isString(),
   body("price").optional().isDecimal(),
   body("categoryId").optional().isMongoId(),

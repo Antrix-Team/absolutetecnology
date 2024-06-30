@@ -86,7 +86,7 @@ const NavbarDefault = () => {
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <ProviderLink to="/dashboard">Providers</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
-        <AddUserModal to="/dashboard/register">Create user</AddUserModal>
+
         <button onClick={handleLogout} tw="bg-red-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4">
           Logout
         </button>

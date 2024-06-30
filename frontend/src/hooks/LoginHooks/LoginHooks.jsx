@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
 import login from "../../api/loginProvider/loginProvider";
 
 const useLogin = () => {
@@ -14,8 +13,9 @@ const useLogin = () => {
     try {
       const response = await login({ username, passw: password });
       if (response.token) {
-        Cookies.set('token', response.token, { path: '/' });
-        navigate('/dashboard');
+        console.log("Token set in cookie:", response.token);
+        localStorage.setItem('token', response.token); 
+        navigate('/dashboard'); // Use navigate instead of window.location
       } else {
         throw new Error('No se recibió token del servidor');
       }

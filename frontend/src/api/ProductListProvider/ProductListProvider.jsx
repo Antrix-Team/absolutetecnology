@@ -31,10 +31,11 @@ const CreateProduct = async(formData) => {
         return response.data;
 
     } catch (error) {
-        console.log(error);
         if(error.response.status === 401) {
             throw new Error("Sesión expirada o no autorizada. Por favor inicie sesión nuevamente");
         }
+
+        throw new Error(JSON.stringify(error.response?.data?.errors)|| "Error al crear el producto");
     }
 } 
 

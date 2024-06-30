@@ -15,7 +15,8 @@ const login = async (credentials) => {
     
     // Guardar el token en una cookie del lado del cliente
     if (response.data.token) {
-      Cookies.get('token', response.data.token, { path: '/' });
+      Cookies.set('token', response.data.token, { path: '/', secure: true, sameSite: 'Strict' });
+      console.log("Token set in cookie:", response.data.token); // Log para verificar que el token se está configurando
     }
     
     return response.data;

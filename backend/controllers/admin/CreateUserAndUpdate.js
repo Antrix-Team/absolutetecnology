@@ -53,5 +53,18 @@ const UpdatePassw = async (req, res) => {
         console.error("A problem occurred in the server", error);
     }
 };
+const DeleteEmployee = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const employee = await UserModel.findByIdAndDelete(id);
+      if (!employee) {
+        return res.status(404).json({ message: "Empleado no encontrado" });
+      }
+      res.status(200).json({ message: "Empleado eliminado exitosamente" });
+    } catch (error) {
+      res.status(500).json({ message: "Error del servidor" });
+      console.error("Se ha producido un problema en el servidor", error);
+    }
+  };
 
-export {CreateNewUser, UpdateUserById, UpdatePassw}
+export {CreateNewUser, UpdateUserById, UpdatePassw, DeleteEmployee}

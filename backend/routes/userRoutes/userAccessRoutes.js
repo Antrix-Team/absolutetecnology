@@ -5,7 +5,8 @@ import verifyToken from "../../middlewares/tokenUserAccess.js";
 import { 
     CreateNewUser,
     UpdatePassw,
-    UpdateUserById 
+    UpdateUserById ,
+    DeleteEmployee
 } from "../../controllers/admin/CreateUserAndUpdate.js";
 import { 
     GetUserById,
@@ -52,9 +53,14 @@ routesUserAccess.post('/send-reset-password-email', SendResetPasswordEmail);
 // Endpoint para verificar el token y actualizar la contraseña
 routesUserAccess.post('/verify-reset-password-token', VerifyResetTokenAndUpdatePassword);
 
+//Endpoint para borrar un empleado
+routesUserAccess.delete('/users/:id', verifyToken, DeleteEmployee)
+
 // Endpoint de una ruta protegida
 routesUserAccess.get('/protected', verifyToken, (req, res) => {
     res.send(`Hola ${req.user.username}, esta es una ruta protegida.`);
 });
+
+
 
 export default routesUserAccess;

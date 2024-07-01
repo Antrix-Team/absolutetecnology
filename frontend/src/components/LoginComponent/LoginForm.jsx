@@ -1,4 +1,3 @@
-// src/components/LoginForm.jsx
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./LoginForm.css";

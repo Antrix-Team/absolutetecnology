@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import tw from "twin.macro";
+import { Link } from "react-router-dom";
 import useProductList from "../../hooks/ProductListHook/ProductListHook";
 import { CreateProductModal } from "../ModalProduct/CreateProductModal";
+import ButtonDeleteProductComponent from "../ButtonDeleteProductComponent/ButtonDeleteProductComponent";
 
 const ProductListComponent = () => {
-    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch,setIsModelOpen, closeModal, openModal, isModelOpen, setProducts} = useProductList();
+    const { Products, loading, error, searchTerm, setSearchTerm, handleSearch, setIsModelOpen, closeModal, openModal, isModelOpen, setProducts } = useProductList();
     const [selectedImage, setSelectedImage] = useState(null);
 
     const openImageModal = (image) => {
@@ -13,6 +15,10 @@ const ProductListComponent = () => {
 
     const closeImageModal = () => {
         setSelectedImage(null);
+    };
+
+    const handleDeleteProduct = (productId) => {
+        setProducts((prevProducts) => prevProducts.filter(product => product._id !== productId));
     };
 
     if (loading) return <div tw="text-center mt-4">Cargando...</div>;
@@ -79,12 +85,10 @@ const ProductListComponent = () => {
                                     </span>
                                 </td>
                                 <td tw="border px-4 py-2">
-                                    <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full">
+                                    <Link to={`/dashboard/update/${product._id}`} tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full inline-block text-center">
                                         Actualizar
-                                    </button>
-                                    <button tw="bg-[#065473] text-white px-2 py-1 rounded w-full">
-                                        Eliminar
-                                    </button>
+                                    </Link>
+                                    <ButtonDeleteProductComponent productId={product._id} onDelete={handleDeleteProduct} />
                                 </td>
                             </tr>
                         ))}

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom";
 import { getCategories } from "../../api/CategoryProvider/CategoryProvider";
 import { getCategoryWithSubcategories } from "../../api/SubcategoryProvider/SubcategoryProvider";
 import { CreateProduct } from "../../api/ProductListProvider/ProductListProvider";
@@ -10,7 +9,12 @@ const UseCreateProduct = () => {
   const [subCategories, setSubCategories] = useState([]);
   const [selectSubCategory, setSelectSubCategory] = useState("");
   const [errorImage, setErrorImage] = useState("");
-  const [errorForm, setErrorForm] = useState("");
+  const [errorForm, setErrorForm] = useState({
+    name: "",
+    description: "",
+    globalError: "",
+    price: ""
+  });
   const [createProduct, setCreateProduct] = useState({
     name: "",
     description: "",
@@ -18,8 +22,6 @@ const UseCreateProduct = () => {
     price: 0,
   });
   const [image, setImage] = useState(null);
-  const navigate = useNavigate();
-
 
   useEffect(() => {
     fetchCategories();
@@ -46,10 +48,18 @@ const UseCreateProduct = () => {
 
   const handleCreateProduct = async(e, setIsModelOpen, setProducts) => {
     e.preventDefault();
-    if(createProduct.name.trim() === "" || createProduct.description.trim() === "" || createProduct.brand.trim() === "" || createProduct.price <= 0 || selectCategory === "" || selectSubCategory === "" || image === null ) {
-      setErrorForm("Todos los campos son obligatorios")
+    if(isNaN(createProduct.price) || createProduct.price <= 0) {
+      setErrorForm((prevState) => ({...prevState, price: "Precio no es válido"}))
+      return;
+    }else {
+      setErrorForm((prevState) => ({...prevState, price: ""}));
+    }
+    
+    if(createProduct.name.trim() === "" || createProduct.description.trim() === "" || createProduct.brand.trim() === "" || selectCategory === "" || selectSubCategory === "" || image === null ) {
+      setErrorForm((prevState) => ({...prevState, globalError: "Todos los campos son obligatorios"}))
       return;
     }
+
 
     console.log(selectSubCategory, selectCategory, createProduct, image);
     setErrorForm("");
@@ -77,12 +87,21 @@ const UseCreateProduct = () => {
       setSelectCategory("");
       setSelectSubCategory("");
       setImage(null);
-      alert("Product agregado correctamente");
+      alert("Producto agregado correctamente");
+      setErrorForm({name: "", description: "", globalError: "", price: ""});
       setIsModelOpen(false);
       setProducts((prevState) => ([...prevState, response]));
     } catch (error) {
-      console.log(error);
-      navigate("/dashboard/products");
+      const errors = JSON.parse(error.message);
+      let newState = {};
+      if(Array.isArray(errors)) {
+        errors.forEach((field) => {
+          const fieldName = field.path;
+          newState[fieldName] = field.msg;
+          console.log(newState)
+        })
+        setErrorForm(newState)
+      }
     }
 
   }

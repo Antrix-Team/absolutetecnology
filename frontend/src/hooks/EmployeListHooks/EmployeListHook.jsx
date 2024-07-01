@@ -36,7 +36,7 @@ const useEmployeList = () => {
         setEmployees(filteredEmployees);
     };
 
-    return { employees, loading, error, searchTerm, setSearchTerm, handleSearch };
+    return { employees, setEmployees, loading, error, searchTerm, setSearchTerm, handleSearch };
 };
 
 export default useEmployeList;

@@ -9,7 +9,7 @@ export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
     const typesAllowed = ["jpg", "jpeg", "png", "webp"];
     if(!typesAllowed.includes(typeImage)) {
       setErrorImage("Formato de imagen no permitido");
-      setErrorForm("");
+      setErrorForm({name: "", description: "", globalError: ""});
       return;
     }
     setImage(e.target.files[0])
@@ -27,6 +27,7 @@ export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
             onChange={(e) => setCreateProduct({...createProduct, name: e.target.value})}
             required 
             placeholder="Nombre del producto" tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+            {errorForm.name && <p tw="text-red-500 text-sm">{errorForm.name}</p>}
         </div>
         <div tw="w-full my-3">
           <input 
@@ -35,6 +36,7 @@ export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
             onChange={(e) => setCreateProduct({...createProduct, description: e.target.value})}
             placeholder="Descripción del producto" 
             tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+            {errorForm.description && <p tw="text-red-500 text-sm">{errorForm.description}</p>}
         </div>
         <div tw="w-full my-3">
           <input 
@@ -51,6 +53,7 @@ export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
             placeholder="Precio del producto" 
             onChange={(e) => setCreateProduct({...createProduct, price: Number(e.target.value)})}
             tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3" />
+            {errorForm.price && <p tw="text-red-500 text-sm">{errorForm.price}</p>}
         </div>
         <div tw="w-full my-3 flex gap-8">
           <select onChange={(e) => setSelectCategory(e.target.value)} tw="w-full bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-3">
@@ -80,9 +83,9 @@ export const CreateProductModal = ({setIsModelOpen, onClose, setProducts}) => {
             tw="bg-transparent border-2 border-gray-300 outline-none text-sm rounded-md py-2 px-2 w-1/2"
             onChange={handleImage}
             />
-            {errorImage && <p tw="text-red-400">{errorImage}</p>}
+            {errorImage && <p tw="text-red-500">{errorImage}</p>}
         </div>
-        {errorForm && <div tw="w-full my-3 flex text-red-400">{errorForm}</div>}
+        {errorForm.globalError && <div tw="w-full my-3 flex text-red-400">{errorForm.globalError}</div>}
         <div tw="w-full my-3 flex gap-8">
           <button tw="w-full bg-[#042f40] text-white border-transparent text-sm rounded-md py-3 px-2">
             Crear

@@ -25,8 +25,14 @@ productRouter.post(
   "/products",
   verifyToken,
   uploadImageProduct.single("image"),
-  body("name").notEmpty().isLength({ min: 5 }),
-  body("description").notEmpty().isLength({ min: 10 }),
+  body("name")
+    .notEmpty()
+    .isLength({ min: 5 })
+    .withMessage("Nombre del producto debe tener al menos 5 caracteres"),
+  body("description")
+    .notEmpty()
+    .isLength({ min: 10 })
+    .withMessage("Descripción debe tener al menos 10 caracteres"),
   body("brand").notEmpty().isString(),
   body("price").notEmpty().isDecimal(),
   body("categoryId").notEmpty().isMongoId(),
@@ -37,7 +43,11 @@ productRouter.post(
 productRouter.put(
   "/products/:id",
   verifyToken,
-  body("description").optional().isString().isLength({ min: 10 }),
+  body("description")
+    .optional()
+    .isString()
+    .isLength({ min: 10 })
+    .withMessage("Descripción debe tener al menos 10 caracteres"),
   body("brand").optional().isString(),
   body("price").optional().isDecimal(),
   body("categoryId").optional().isMongoId(),

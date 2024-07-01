@@ -64,11 +64,11 @@ const LoginRegister = () => {
                 <form onSubmit={handleSubmit}>
                     <h1>Registrar Usuario</h1>
                     <div className='input-box'>
-                        <input type="text" name="name" placeholder='Primer nombre' value={formData.name} onChange={handleChange} required />
+                        <input type="text" name="name" placeholder='Nombres' value={formData.name} onChange={handleChange} required />
                         <FaUserAlt className='icon' />
                     </div>
                     <div className='input-box'>
-                        <input type="text" name="middlename" placeholder='Segundo nombre' value={formData.middlename} onChange={handleChange} required />
+                        <input type="text" name="middlename" placeholder='Apellidos' value={formData.middlename} onChange={handleChange} required />
                         <FaUserAlt className='icon' />
                     </div>
                     <div className='input-box'>

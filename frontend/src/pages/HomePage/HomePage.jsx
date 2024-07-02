@@ -37,11 +37,11 @@ const HomePage = () => {
   return (
     <HomePageContainer>
       <HeroSection>
-        <HeroTitle>Welcome to MyCompany</HeroTitle>
+        <HeroTitle>Welcome to MyCompany Absolute Technology</HeroTitle>
         <HeroSubtitle>Your trusted partner in business solutions</HeroSubtitle>
         <ButtonPrimary>Learn More</ButtonPrimary>
       </HeroSection>
-
+      
     </HomePageContainer>
   );
 };

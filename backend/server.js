@@ -11,6 +11,7 @@ import { globalErrorMiddleware } from "./middlewares/validationMiddleware.js";
 import verifyToken from "./middlewares/tokenUserAccess.js";
 import categoryRouter from "./routes/categoryRoutes/categoryRoutes.js";
 import subcategoryRouter from "./routes/subcategoryRoutes/subcategoryRoutes.js";
+import inventoryRouter from "./routes/inventoryRoutes/inventoryRoutes.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ server.use("/api", routesUserAccess);
 server.use("/api", verifyToken, productRouter);
 server.use("/api", verifyToken, categoryRouter);
 server.use("/api", verifyToken, subcategoryRouter);
+server.use("/api", verifyToken, inventoryRouter);
 
 // Middleware global para manejo de errores
 server.use(globalErrorMiddleware);

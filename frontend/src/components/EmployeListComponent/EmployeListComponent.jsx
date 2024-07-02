@@ -39,8 +39,8 @@ const EmployeListComponent = () => {
       <table tw="table-auto w-full border-collapse border border-gray-200">
         <thead>
           <tr tw="bg-gray-100">
-            <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Nombre</th>
-            <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Apellido</th>
+            <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Nombres</th>
+            <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Apellidos</th>
             <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Teléfono</th>
             <th tw="border px-4 py-2 text-left text-gray-600 font-medium">Carnet</th>
             <th tw="border px-4 py-2 text-center text-gray-600 font-medium">Acciones</th>

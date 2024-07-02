@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
 import useProductList from "../../hooks/ProductListHook/ProductListHook";
 import { CreateProductModal } from "../ModalProduct/CreateProductModal";
 import ButtonDeleteProductComponent from "../ButtonDeleteProductComponent/ButtonDeleteProductComponent";
 import { generarReporte } from "../../api/GenerateReportProvider/GenerateReportProvider";
+import axios from 'axios';
+
+const urlReport = import.meta.env.VITE_URL;
+
 
 const ProductListComponent = () => {
   const {
@@ -20,9 +24,36 @@ const ProductListComponent = () => {
     isModelOpen,
     setProducts,
   } = useProductList();
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const [filtroCategoria, setFiltroCategoria] = useState('');
-  const [filtroStock, setFiltroStock] = useState('');
+  const [filtroSubcategoria, setFiltroSubcategoria] = useState('');
+  const [categorias, setCategorias] = useState([]);
+  const [subcategorias, setSubcategorias] = useState([]);
+
+  useEffect(() => {
+    // Obtener categorías y subcategorías del backend
+    const fetchCategorias = async () => {
+      try {
+        const { data } = await axios.get(`${urlReport}/categories`); // Ajusta la ruta según tu configuración
+        setCategorias(data);
+      } catch (error) {
+        console.error('Error al obtener las categorías:', error);
+      }
+    };
+
+    const fetchSubcategorias = async () => {
+      try {
+        const { data } = await axios.get(`${urlReport}/subcategories`); // Ajusta la ruta según tu configuración
+        setSubcategorias(data);
+      } catch (error) {
+        console.error('Error al obtener las subcategorías:', error);
+      }
+    };
+
+    fetchCategorias();
+    fetchSubcategorias();
+  }, []);
 
   const openImageModal = (image) => {
     setSelectedImage(image);
@@ -38,7 +69,7 @@ const ProductListComponent = () => {
 
   const handleGenerarReporte = async () => {
     try {
-      await generarReporte({ categoria: filtroCategoria, stock: filtroStock });
+      await generarReporte({ categoria: filtroCategoria, subcategoria: filtroSubcategoria });
     } catch (error) {
       console.error('Error al generar el reporte:', error);
     }
@@ -70,20 +101,26 @@ const ProductListComponent = () => {
         </button>
       </div>
       <div tw="flex items-center mb-4">
-        <input
-          type="text"
-          placeholder="Categoría"
+        <select
           value={filtroCategoria}
           onChange={(e) => setFiltroCategoria(e.target.value)}
           tw="border rounded px-4 py-2 mr-2"
-        />
-        <input
-          type="number"
-          placeholder="Nivel de stock"
-          value={filtroStock}
-          onChange={(e) => setFiltroStock(e.target.value)}
+        >
+          <option value="">Seleccionar Categoría</option>
+          {categorias.map((categoria) => (
+            <option key={categoria._id} value={categoria._id}>{categoria.category}</option>
+          ))}
+        </select>
+        <select
+          value={filtroSubcategoria}
+          onChange={(e) => setFiltroSubcategoria(e.target.value)}
           tw="border rounded px-4 py-2 mr-2"
-        />
+        >
+          <option value="">Seleccionar Subcategoría</option>
+          {subcategorias.map((subcategoria) => (
+            <option key={subcategoria._id} value={subcategoria._id}>{subcategoria.subcategory}</option>
+          ))}
+        </select>
         <button
           onClick={handleGenerarReporte}
           tw="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

@@ -9,8 +9,7 @@ import ForgotPasswordPage from "../ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
-
-
+import InventaryPage from "../InventaryPage/InventaryPage";
 
 const DashboardPage = () => {
   return (
@@ -30,6 +29,7 @@ const DashboardPage = () => {
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />
           <Route path="update/:id" element={<UpdateProductPage />} />
+          <Route path="inventary" element={<InventaryPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

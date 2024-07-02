@@ -2,16 +2,21 @@ import ProductModel from '../../models/product/productModel.js';
 import puppeteer from 'puppeteer';
 
 const generarReporte = async (req, res) => {
-  const { categoria, stock } = req.query;
+  const { categoria, subcategoria, stock } = req.query;
   try {
     const query = {};
     if (categoria) {
-      query.categoria = categoria;
+      query.categoryId = categoria;
+    }
+    if (subcategoria) {
+      query.subCategoryId = subcategoria;
     }
     if (stock) {
       query.stock = { $gte: Number(stock) };
     }
-    const productos = await ProductModel.find(query);
+
+    const productos = await ProductModel.find(query).populate('categoryId').populate('subCategoryId');
+    
     const htmlContent = `
       <!DOCTYPE html>
       <html lang="es">
@@ -23,6 +28,7 @@ const generarReporte = async (req, res) => {
       <body>
         <h1>Reporte de productos</h1>
         <p>Categoría: ${categoria || 'Todas'}</p>
+        <p>Subcategoría: ${subcategoria || 'Todas'}</p>
         <p>Nivel mínimo de stock: ${stock || 'N/A'}</p>
         <table border="1" cellpadding="5" cellspacing="0">
           <thead>
@@ -45,7 +51,7 @@ const generarReporte = async (req, res) => {
                 <td>${producto.price.toFixed(2)}</td>
                 <td>${producto.image ? `<img src="${producto.image}" alt="${producto.name}" width="50" height="50"/>` : 'No image'}</td>
                 <td>${producto.categoryId?.category}</td>
-                <td>${producto.subCategoryId}</td>
+                <td>${producto.subCategoryId?.subcategory}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -53,6 +59,7 @@ const generarReporte = async (req, res) => {
       </body>
       </html>
     `;
+    
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(htmlContent, { waitUntil: 'networkidle0' });

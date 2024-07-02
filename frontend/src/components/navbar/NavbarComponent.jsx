@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import tw, { styled, css } from 'twin.macro';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import logo from '../../assets/logoabsolutetecnology.svg';
 
 axios.defaults.withCredentials = true;
 const urllogout = import.meta.env.VITE_URL;
-
 
 // Estiliza el componente NavLink
 const NavLink = styled(Link)(() => [
@@ -52,11 +52,17 @@ const UsersLink = styled(NavLink)``;
 const AddUserModal = styled(ButtonAddUser)``;
 
 const NavbarContainer = styled.div(() => [
-  tw`w-full bg-gray-800 p-4 flex justify-between items-center shadow-lg`,
+  tw`w-full bg-blue-600/40 p-4 flex justify-between items-center shadow-lg`,
 ]);
 
 const Logo = styled.div(() => [
-  tw`text-white text-2xl font-bold`,
+  tw`flex items-center text-white text-2xl font-bold`,
+  css`
+    img {
+      height: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
+      margin-right: 10px; /* Espacio entre el logo y el texto */
+    }
+  `,
 ]);
 
 const NavLinksContainer = styled.div(() => [
@@ -80,11 +86,14 @@ const NavbarDefault = () => {
 
   return (
     <NavbarContainer>
-      <Logo>logo</Logo>
+      <Logo>
+        <img src={logo} alt="Logo" />
+        Absolute Technology
+      </Logo>
       <NavLinksContainer>
         <HomeLink to="/dashboard">Home</HomeLink>
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
-        <ProviderLink to="/dashboard">Providers</ProviderLink>
+        <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
 
         <button onClick={handleLogout} tw="bg-red-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4">

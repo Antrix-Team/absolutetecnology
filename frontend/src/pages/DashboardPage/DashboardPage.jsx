@@ -10,6 +10,7 @@ import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 import InventaryPage from "../InventaryPage/InventaryPage";
+import CategoryPage from "../CategoryAndSubCategoryPage/CategoryAndSubCategoryPage";
 
 const DashboardPage = () => {
   return (
@@ -28,6 +29,7 @@ const DashboardPage = () => {
           <Route path="products" element={<ProductListPage />} />
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />
+          <Route path="categoriesandsubcategories" element={<CategoryPage/>} />
           <Route path="update/:id" element={<UpdateProductPage />} />
           <Route path="inventary" element={<InventaryPage />} />
         </Route>

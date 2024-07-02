@@ -91,9 +91,10 @@ const NavbarDefault = () => {
         Absolute Technology
       </Logo>
       <NavLinksContainer>
-        <HomeLink to="/dashboard">Home</HomeLink>
+      <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
+      <ProductsLink to="/dashboard/categoriesandsubcategories">Categories</ProductsLink>
+        <HomeLink to="/dashboard">SubCategories</HomeLink>
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
-        <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
 
         <button onClick={handleLogout} tw="bg-red-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4">

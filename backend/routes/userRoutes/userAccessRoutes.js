@@ -20,6 +20,7 @@ import AccessLogin from "../../controllers/admin/AccessUserController.js";
 
 import UserLogoutController from "../../controllers/admin/LogoutController.js";
 
+import generarReporte from "../../controllers/product/ReportProductController.js";
 
 
 dotenv.config();
@@ -61,6 +62,6 @@ routesUserAccess.get('/protected', verifyToken, (req, res) => {
     res.send(`Hola ${req.user.username}, esta es una ruta protegida.`);
 });
 
-
+routesUserAccess.get('/reporte', generarReporte);
 
 export default routesUserAccess;

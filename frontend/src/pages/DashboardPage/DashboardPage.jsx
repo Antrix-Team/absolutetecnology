@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../LoginPage/LoginPage";
 import HeaderDefault from "../../components/header/HeaderComponent";
-import SubCategoryPage from "../HomePage/UpdateSubCategoryPage";
+import SubCategoryPage from "../SubCategoryPage/UpdateSubCategoryPage";
 
 import EmployeListPage from "../EmployeListPage/EmployeListPage";
 import LoginRegisterPage from "../LoginRegisterPage/LoginRegisterPage";
@@ -11,7 +11,7 @@ import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 import InventaryPage from "../InventaryPage/InventaryPage";
-import CategoryPage from "../CategoryAndSubCategoryPage/CategoryUpdatePage";
+import CategoryPage from "../CategoryPage/CategoryUpdatePage";
 
 const DashboardPage = () => {
   return (

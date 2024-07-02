@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import tw from 'twin.macro';
 import axios from 'axios';
 import ButtonUpdateSubCategoryComponent from './ButtonUpdateSubCategoryComponent';
+import ButtonDeleteSubcategoryComponent from '../../components/ButtonDeleteSubcategoryComponent/ButtonDeleteSubcategoryComponent';
 
 const PageContainer = tw.div`min-h-screen bg-gray-100 p-8`;
 const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
@@ -73,6 +74,17 @@ const SubCategoryPage = () => {
     }
   };
 
+  const handleDeleteSubcategory = async (subcategoryId) => {
+    try {
+      const response = await axios.delete(`${urlInventary}/subcategories/${subcategoryId}`);
+      console.log(response.data); // Optional: Log success message
+      fetchSubcategories(); // Refresh subcategories after deletion
+    } catch (error) {
+      console.error('Error deleting subcategory:', error);
+      // Optionally handle specific error messages or show notifications
+    }
+  };
+
   return (
     <PageContainer>
       <PageTitle>Gestión de Subcategorías</PageTitle>
@@ -100,7 +112,10 @@ const SubCategoryPage = () => {
               <Td>{subcategory.description}</Td>
               <Td>
                 <ButtonUpdateSubCategoryComponent subcategory={subcategory} />
-                <button tw="text-red-500 hover:text-red-700 ml-4">Eliminar</button>
+                <ButtonDeleteSubcategoryComponent
+                  subcategoryId={subcategory._id}
+                  onDelete={handleDeleteSubcategory}
+                />
               </Td>
               
             </Tr>

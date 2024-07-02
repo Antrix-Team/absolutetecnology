@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import tw from 'twin.macro';
 import axios from 'axios';
-import ButtonUpdateCategoryComponent from './ButtonUpdateCategoryComponent';
+import ButtonDeleteCategoryComponent from '../../components/ButtonDeleteCategoryComponent/ButtonDeleteCategoryComponent';
 
 const PageContainer = tw.div`min-h-screen bg-gray-100 p-8`;
 const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
@@ -42,14 +42,13 @@ const CategoryPage = () => {
     fetchCategories();
   }, []);
 
-  const handleCreateCategory = async (e) => {
+  const handleCategorySubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`${urlInventary}/categories`, {
         category: categoryName,
         description: categoryDescription,
       });
-      setIsModalOpen(false);
       setCategoryName('');
       setCategoryDescription('');
       fetchCategories();
@@ -58,42 +57,25 @@ const CategoryPage = () => {
     }
   };
 
+  const handleDeleteCategory = (categoryId) => {
+    setCategories((prevCategories) => prevCategories.filter(category => category._id !== categoryId));
+  };
+
   return (
     <PageContainer>
-      <PageTitle>Gestión de Categorías</PageTitle>
+      <PageTitle>Página de Categorías</PageTitle>
       <button
-        tw="mb-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        tw="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6"
         onClick={() => setIsModalOpen(true)}
       >
-        Crear Categoría
+        Agregar Categoría
       </button>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Nombre</Th>
-            <Th>Descripción</Th>
-            <Th>Acciones</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {categories.map((category) => (
-            <Tr key={category._id}>
-              <Td>{category.category}</Td>
-              <Td>{category.description}</Td>
-              <Td>
-                <ButtonUpdateCategoryComponent category={category} />
-                <button tw="text-red-500 hover:text-red-700 ml-4">Eliminar</button>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
       {isModalOpen && (
         <ModalBackground>
           <ModalContainer>
             <CloseButton onClick={() => setIsModalOpen(false)}>×</CloseButton>
-            <h2 tw="text-xl font-bold mb-4">Crear Categoría</h2>
-            <form onSubmit={handleCreateCategory}>
+            <h2 tw="text-xl font-bold mb-4">Agregar Categoría</h2>
+            <form onSubmit={handleCategorySubmit}>
               <FormGroup>
                 <Label>Nombre de la Categoría</Label>
                 <Input
@@ -112,11 +94,32 @@ const CategoryPage = () => {
                   required
                 />
               </FormGroup>
-              <SubmitButton type="submit">Crear Categoría</SubmitButton>
+              <SubmitButton type="submit">Agregar Categoría</SubmitButton>
             </form>
           </ModalContainer>
         </ModalBackground>
       )}
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Categoría</Th>
+            <Th>Descripción</Th>
+            <Th>Acciones</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {categories.map((category) => (
+            <Tr key={category._id}>
+              <Td>{category.category}</Td>
+              <Td>{category.description}</Td>
+              <Td>
+                <button tw="text-blue-500 hover:text-blue-700">Actualizar</button>
+                <ButtonDeleteCategoryComponent categoryId={category._id} onDelete={handleDeleteCategory} />
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
     </PageContainer>
   );
 };

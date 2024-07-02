@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../LoginPage/LoginPage";
 import HeaderDefault from "../../components/header/HeaderComponent";
-import HomePage from "../HomePage/HomePage";
+import SubCategoryPage from "../HomePage/UpdateSubCategoryPage";
+
 import EmployeListPage from "../EmployeListPage/EmployeListPage";
 import LoginRegisterPage from "../LoginRegisterPage/LoginRegisterPage";
 import ProductListPage from "../ProductPage/ProductPage";
@@ -10,7 +11,7 @@ import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 import InventaryPage from "../InventaryPage/InventaryPage";
-import CategoryPage from "../CategoryAndSubCategoryPage/CategoryAndSubCategoryPage";
+import CategoryPage from "../CategoryAndSubCategoryPage/CategoryUpdatePage";
 
 const DashboardPage = () => {
   return (
@@ -25,7 +26,7 @@ const DashboardPage = () => {
             <PrivateRoute element={HeaderDefault} />
           }
         >
-          <Route index element={<HomePage />} />
+          <Route index element={<SubCategoryPage />} />
           <Route path="products" element={<ProductListPage />} />
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />

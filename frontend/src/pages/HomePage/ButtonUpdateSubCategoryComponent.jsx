@@ -3,15 +3,6 @@ import React, { useState, useEffect } from 'react';
 import tw from 'twin.macro';
 import axios from 'axios';
 
-const PageContainer = tw.div`min-h-screen bg-gray-100 p-8`;
-const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
-const Table = tw.table`min-w-full bg-white`;
-const Thead = tw.thead``;
-const Tbody = tw.tbody``;
-const Tr = tw.tr``;
-const Th = tw.th`py-2 px-4 border-b border-gray-200`;
-const Td = tw.td`py-2 px-4 border-b border-gray-200`;
-
 const ModalBackground = tw.div`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center`;
 const ModalContainer = tw.div`bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative`;
 const CloseButton = tw.button`absolute top-2 right-2 text-gray-500 hover:text-gray-700`;
@@ -23,13 +14,12 @@ const SubmitButton = tw.button`bg-blue-500 hover:bg-blue-700 text-white font-bol
 
 const urlInventary = import.meta.env.VITE_URL;
 
-const SubcategoryPage = () => {
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
+const ButtonUpdateSubCategoryComponent = ({ subcategory }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
-  const [subcategoryName, setSubcategoryName] = useState('');
-  const [subcategoryDescription, setSubcategoryDescription] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(subcategory.category._id);
+  const [subcategoryName, setSubcategoryName] = useState(subcategory.subcategory);
+  const [subcategoryDescription, setSubcategoryDescription] = useState(subcategory.description);
 
   const fetchCategories = async () => {
     try {
@@ -40,52 +30,36 @@ const SubcategoryPage = () => {
     }
   };
 
-  const fetchSubcategories = async () => {
-    try {
-      const response = await axios.get(`${urlInventary}/subcategories`);
-      setSubcategories(response.data);
-    } catch (error) {
-      console.error('Error fetching subcategories:', error);
-    }
-  };
-
   useEffect(() => {
     fetchCategories();
-    fetchSubcategories();
   }, []);
 
-  const handleSubcategorySubmit = async (e) => {
+  const handleUpdateSubcategory = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${urlInventary}/subcategories`, {
+      await axios.put(`${urlInventary}/subcategories/${subcategory._id}`, {
         subcategory: subcategoryName,
         description: subcategoryDescription,
         categoryId: selectedCategoryId,
       });
-      setSubcategoryName('');
-      setSubcategoryDescription('');
-      setSelectedCategoryId('');
-      fetchSubcategories();
+      setIsModalOpen(false);
+      window.location.reload(); // Refresh the page to show the updated subcategory
     } catch (error) {
-      console.error('Error creating subcategory:', error);
+      console.error('Error updating subcategory:', error);
     }
   };
 
   return (
-    <PageContainer>
-      <PageTitle>Página de Subcategorías</PageTitle>
-      <button
-        tw="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Agregar Subcategoría
+    <>
+      <button tw="text-blue-500 hover:text-blue-700" onClick={() => setIsModalOpen(true)}>
+        Actualizar
       </button>
       {isModalOpen && (
         <ModalBackground>
           <ModalContainer>
             <CloseButton onClick={() => setIsModalOpen(false)}>×</CloseButton>
-            <h2 tw="text-xl font-bold mb-4">Agregar Subcategoría</h2>
-            <form onSubmit={handleSubcategorySubmit}>
+            <h2 tw="text-xl font-bold mb-4">Actualizar Subcategoría</h2>
+            <form onSubmit={handleUpdateSubcategory}>
               <FormGroup>
                 <Label>Seleccionar Categoría</Label>
                 <Select
@@ -121,36 +95,13 @@ const SubcategoryPage = () => {
                   required
                 />
               </FormGroup>
-              <SubmitButton type="submit">Agregar Subcategoría</SubmitButton>
+              <SubmitButton type="submit">Actualizar Subcategoría</SubmitButton>
             </form>
           </ModalContainer>
         </ModalBackground>
       )}
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Categoría</Th>
-            <Th>Subcategoría</Th>
-            <Th>Descripción</Th>
-            <Th>Acciones</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {subcategories.map((subcategory) => (
-            <Tr key={subcategory._id}>
-              <Td>{subcategory.category.category}</Td>
-              <Td>{subcategory.subcategory}</Td>
-              <Td>{subcategory.description}</Td>
-              <Td>
-                <button tw="text-blue-500 hover:text-blue-700">Actualizar</button>
-                <button tw="text-red-500 hover:text-red-700 ml-4">Eliminar</button>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </PageContainer>
+    </>
   );
 };
 
-export default SubcategoryPage;
+export default ButtonUpdateSubCategoryComponent;

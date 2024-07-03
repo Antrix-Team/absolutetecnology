@@ -1,18 +1,25 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import tw from "twin.macro";
 import useEmployeList from "../../hooks/EmployeListHooks/EmployeListHook";
 import ButtonDeleteEmployeeComponent from "../ButtonDeleteEmployeeComponent/ButtonDeleteEmployeeComponent";
+import UpdateUserModal from "./ModalUpdateUser"; // Modal de actualización
 
 const EmployeListComponent = () => {
   const { employees, loading, error, searchTerm, setSearchTerm, handleSearch, setEmployees } = useEmployeList();
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   const handleDeleteEmployee = useCallback(async (employeeId) => {
     try {
+      // Lógica para eliminar empleado
       setEmployees((prevEmployees) => prevEmployees.filter(employee => employee._id !== employeeId));
     } catch (error) {
       console.error("Error eliminando el empleado:", error);
     }
   }, [setEmployees]);
+
+  const handleUpdateClick = useCallback((userId) => {
+    setSelectedUserId(userId);
+  }, []);
 
   if (loading) return <div tw="text-center mt-4">Cargando...</div>;
   if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
@@ -55,9 +62,19 @@ const EmployeListComponent = () => {
               <td tw="border px-4 py-2 text-gray-700">{employee.carnet}</td>
               <td tw="border px-4 py-2 text-center">
                 <div tw="flex flex-col items-center space-y-2">
-                  <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24">
+                  <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24" onClick={() => handleUpdateClick(employee._id)}>
                     Actualizar
                   </button>
+                  {selectedUserId === employee._id && (
+                    <UpdateUserModal
+                      key={employee._id} // Asegura que el modal se actualice al cambiar de usuario
+                      userId={employee._id}
+                      onUpdate={(updatedUserData) => {
+                        // Lógica para actualizar los datos del empleado en el estado local si es necesario
+                        setSelectedUserId(null); // Cierra el modal
+                      }}
+                    />
+                  )}
                   <ButtonDeleteEmployeeComponent employeeId={employee._id} onDelete={handleDeleteEmployee} />
                 </div>
               </td>

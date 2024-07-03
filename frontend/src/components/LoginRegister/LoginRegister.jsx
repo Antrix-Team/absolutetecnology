@@ -5,6 +5,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'; 
 
+axios.defaults.withCredentials = true;
+const urlogin = import.meta.env.VITE_URL;
+
 const LoginRegister = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -32,7 +35,7 @@ const LoginRegister = () => {
         setError('');
         setSuccess('');
         try {
-            const response = await axios.post('http://localhost:3000/api/userregister', formData, {
+            const response = await axios.post(`${urlogin}/userregister`, formData, {
                 headers: {
                     'Authorization': `Bearer ${Cookies.get('token')}` 
                 }

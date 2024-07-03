@@ -15,9 +15,9 @@ const Input = tw.input`shadow appearance-none border rounded w-full py-2 px-3 te
 const Select = tw.select`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500`;
 const ErrorText = tw.p`text-red-500 text-xs italic`;
 const Button = tw.button`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500`;
-const Table = tw.table`min-w-full bg-white border mt-4`;
-const Th = tw.th`py-2 px-4 border-b bg-gray-100 text-center text-gray-600 font-bold`;
-const Td = tw.td`py-2 px-4 border-b text-center`;
+const Table = tw.table`min-w-full bg-white border border-collapse mt-4`;
+const Th = tw.th`py-2 px-4 border-b border-gray-300 bg-gray-100 text-center text-gray-600 font-bold`;
+const Td = tw.td`py-2 px-4 border text-left text-gray-700`;
 
 const InventaryComponent = () => {
   const { inventories, products, createInventary, validationErrors, updateInventory, getInventory, deleteInventory } = useInventary();
@@ -36,14 +36,14 @@ const InventaryComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(isInventoryId) {
+    if (isInventoryId) {
       try {
         await handleUpdate(e, isInventoryId);
         setIsInventoryId(null);
       } catch (error) {
         console.log(error);
       }
-    }else {
+    } else {
       try {
         await createInventary(formData);
         setIsModelOpen(false);
@@ -54,29 +54,29 @@ const InventaryComponent = () => {
     }
   };
 
-  const handleUpdate = async(e, id) => {
+  const handleUpdate = async (e, id) => {
     e.preventDefault();
     try {
-      await updateInventory(id, formData)
+      await updateInventory(id, formData);
       setIsModelOpen(false);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const handleGetInventory = async(e, id) => {
+  const handleGetInventory = async (e, id) => {
     e.preventDefault();
     setIsModelOpen(true);
     setIsInventoryId(id);
     try {
       const inventory = await getInventory(id);
-      setFormData({productId: inventory.productId._id, stock: inventory.stock, unitPrice: inventory.unitPrice});
+      setFormData({ productId: inventory.productId._id, stock: inventory.stock, unitPrice: inventory.unitPrice });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const handleDeleteInventory = async(e, id) => {
+  const handleDeleteInventory = async (e, id) => {
     e.preventDefault();
     try {
       const response = await deleteInventory(id);
@@ -84,78 +84,75 @@ const InventaryComponent = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const closeModal = () => {
     setIsModelOpen(false);
-    setFormData({productId: "", stock: "", unitPrice: ""});
-  }
+    setFormData({ productId: '', stock: '', unitPrice: '' });
+  };
 
   return (
     <Container>
       <Title>Inventario</Title>
       <button
-      
         tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
         onClick={() => setIsModelOpen(true)}
       >
         Agregar inventario
       </button>
-      {
-        isModelOpen && (
-          <ModalBackground>
-            <ModalContainer>
-              <CloseButton onClick={closeModal}>×</CloseButton>
-              <form onSubmit={handleSubmit}>
-                <InputGroup>
-                  <Label htmlFor="stock">Stock</Label>
-                  <Input
-                    type="number"
-                    name="stock"
-                    value={formData.stock}
-                    onChange={handleChange}
-                    placeholder="Stock"
-                    id="stock"
-                  />
-                  {validationErrors.stock && <ErrorText>{validationErrors.stock}</ErrorText>}
-                </InputGroup>
-                <InputGroup>
-                  <Label htmlFor="productId">Producto</Label>
-                  <Select
-                    name="productId"
-                    value={formData.productId}
-                    onChange={handleChange}
-                    id="productId"
-                  >
-                    <option value="">Seleccionar Producto</option>
-                    {products?.map((product) => (
-                      <option key={product._id} value={product._id}>
-                        {product.name}
-                      </option>
-                    ))}
-                  </Select>
-                  {validationErrors.productId && <ErrorText>{validationErrors.productId}</ErrorText>}
-                </InputGroup>
-                <InputGroup>
-                  <Label htmlFor="unitPrice">Precio Unitario</Label>
-                  <Input
-                    type="number"
-                    name="unitPrice"
-                    value={formData.unitPrice}
-                    onChange={handleChange}
-                    placeholder="Unit Price"
-                    id="unitPrice"
-                  />
-                  {validationErrors.unitPrice && <ErrorText>{validationErrors.unitPrice}</ErrorText>}
-                </InputGroup>
-                <Button type="submit">
-                  {isInventoryId ? "Actualizar inventario" : "Crear Inventario"}
-                </Button>
-              </form>
-            </ModalContainer>
-          </ModalBackground>
-        )
-      }
+      {isModelOpen && (
+        <ModalBackground>
+          <ModalContainer>
+            <CloseButton onClick={closeModal}>×</CloseButton>
+            <form onSubmit={handleSubmit}>
+              <InputGroup>
+                <Label htmlFor="stock">Stock</Label>
+                <Input
+                  type="number"
+                  name="stock"
+                  value={formData.stock}
+                  onChange={handleChange}
+                  placeholder="Stock"
+                  id="stock"
+                />
+                {validationErrors.stock && <ErrorText>{validationErrors.stock}</ErrorText>}
+              </InputGroup>
+              <InputGroup>
+                <Label htmlFor="productId">Producto</Label>
+                <Select
+                  name="productId"
+                  value={formData.productId}
+                  onChange={handleChange}
+                  id="productId"
+                >
+                  <option value="">Seleccionar Producto</option>
+                  {products?.map((product) => (
+                    <option key={product._id} value={product._id}>
+                      {product.name}
+                    </option>
+                  ))}
+                </Select>
+                {validationErrors.productId && <ErrorText>{validationErrors.productId}</ErrorText>}
+              </InputGroup>
+              <InputGroup>
+                <Label htmlFor="unitPrice">Precio Unitario</Label>
+                <Input
+                  type="number"
+                  name="unitPrice"
+                  value={formData.unitPrice}
+                  onChange={handleChange}
+                  placeholder="Unit Price"
+                  id="unitPrice"
+                />
+                {validationErrors.unitPrice && <ErrorText>{validationErrors.unitPrice}</ErrorText>}
+              </InputGroup>
+              <Button type="submit">
+                {isInventoryId ? 'Actualizar inventario' : 'Crear Inventario'}
+              </Button>
+            </form>
+          </ModalContainer>
+        </ModalBackground>
+      )}
 
       <Table>
         <thead>
@@ -175,12 +172,18 @@ const InventaryComponent = () => {
               <Td>{inventory.stock}</Td>
               <Td>{inventory.unitPrice}</Td>
               <Td>
-              <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24" onClick={(e) => handleGetInventory(e, inventory._id)}>
+                <button
+                  tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24"
+                  onClick={(e) => handleGetInventory(e, inventory._id)}
+                >
                   Actualizar
-              </button>
-              <button tw="bg-[#065473] w-24 ml-2 text-white px-2 py-1 rounded" onClick={(e) => handleDeleteInventory(e, inventory._id)}>
+                </button>
+                <button
+                  tw="bg-[#065473] w-24 ml-2 text-white px-2 py-1 rounded"
+                  onClick={(e) => handleDeleteInventory(e, inventory._id)}
+                >
                   Eliminar
-              </button>
+                </button>
               </Td>
             </tr>
           ))}

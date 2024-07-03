@@ -1,14 +1,31 @@
-import React, { useState, useEffect } from "react";
-import tw from "twin.macro";
-import { Link } from "react-router-dom";
-import useProductList from "../../hooks/ProductListHook/ProductListHook";
-import { CreateProductModal } from "../ModalProduct/CreateProductModal";
-import ButtonDeleteProductComponent from "../ButtonDeleteProductComponent/ButtonDeleteProductComponent";
-import { generarReporte } from "../../api/GenerateReportProvider/GenerateReportProvider";
+/** @jsxImportSource @emotion/react */
+import React, { useState, useEffect } from 'react';
+import tw from 'twin.macro';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import useProductList from '../../hooks/ProductListHook/ProductListHook';
+import { CreateProductModal } from '../ModalProduct/CreateProductModal';
+import ButtonDeleteProductComponent from '../ButtonDeleteProductComponent/ButtonDeleteProductComponent';
+import { generarReporte } from '../../api/GenerateReportProvider/GenerateReportProvider';
+
+const Container = tw.div`min-h-screen bg-gray-100 p-8`;
+const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
+const Table = tw.table`min-w-full bg-white border-collapse border mt-4`;
+const Thead = tw.thead`bg-gray-200`;
+const Tbody = tw.tbody``;
+const Tr = tw.tr``;
+const Th = tw.th`py-2 px-4 border text-center text-gray-700 font-bold`;
+const Td = tw.td`py-2 px-4 border text-left text-gray-700`;
+
+const ModalBackground = tw.div`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center`;
+const ModalContainer = tw.div`bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative`;
+const CloseButton = tw.button`absolute top-2 right-2 text-gray-500 hover:text-gray-700`;
+const FormGroup = tw.div`mb-4`;
+const Label = tw.label`block text-gray-700 text-sm font-bold mb-2`;
+const Input = tw.input`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`;
+const SubmitButton = tw.button`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none`;
 
 const urlReport = import.meta.env.VITE_URL;
-
 
 const ProductListComponent = () => {
   const {
@@ -79,11 +96,14 @@ const ProductListComponent = () => {
   if (error) return <div tw="text-center mt-4 text-red-500">Error: {error}</div>;
 
   return (
-    <div tw="container mx-auto p-4">
-      <div tw="flex justify-between mb-4">
-        <h2 tw="text-xl font-semibold mb-4">Lista de Productos</h2>
-        <button onClick={openModal} tw="px-2 py-1 rounded-md bg-[#0568a6] text-white">Agregar producto</button>
-      </div>
+    <Container>
+      <PageTitle>Lista de Productos</PageTitle>
+      <button
+        onClick={openModal}
+        tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
+      >
+        Agregar producto
+      </button>
       {isModelOpen && <CreateProductModal setIsModelOpen={setIsModelOpen} onClose={closeModal} setProducts={setProducts} />}
       <div tw="flex items-center mb-4">
         <input
@@ -128,55 +148,53 @@ const ProductListComponent = () => {
           Generar Reporte
         </button>
       </div>
-      <div tw="overflow-x-auto">
-        <table tw="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th tw="border px-4 py-2">Nombre</th>
-              <th tw="border px-4 py-2">Descripción</th>
-              <th tw="border px-4 py-2">Marca</th>
-              <th tw="border px-4 py-2">Precio</th>
-              <th tw="border px-4 py-2">Imagen</th>
-              <th tw="border px-4 py-2">Categoría</th>
-              <th tw="border px-4 py-2">Subcategoría</th>
-              <th tw="border px-4 py-2">Estado</th>
-              <th tw="border px-4 py-2">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Products.map((product) => (
-              <tr key={product._id}>
-                <td tw="border px-4 py-2">{product.name}</td>
-                <td tw="border px-4 py-2">{product.description}</td>
-                <td tw="border px-4 py-2">{product.brand}</td>
-                <td tw="border px-4 py-2">${product.price}</td>
-                <td tw="border px-4 py-2">
-                  <img src={product.image} alt={product.name} tw="w-36 h-16 object-cover" />
-                  <button 
-                    tw="bg-[#077F8C] text-white px-2 py-1 rounded mt-2 w-full"
-                    onClick={() => openImageModal(product.image)}
-                  >
-                    Ver
-                  </button>
-                </td>
-                <td tw="border px-4 py-2">{product.categoryId?.category}</td>
-                <td tw="border px-4 py-2">{product.subCategoryId?.subcategory}</td>
-                <td tw="border px-4 py-2">
-                  <span tw="bg-[#0568a6] text-white rounded-md px-2 py-1 text-xs">
-                    {product.status}
-                  </span>
-                </td>
-                <td tw="border px-4 py-2">
-                  <Link to={`/dashboard/update/${product._id}`} tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full inline-block text-center">
-                    Actualizar
-                  </Link>
-                  <ButtonDeleteProductComponent productId={product._id} onDelete={handleDeleteProduct} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Nombre</Th>
+            <Th>Descripción</Th>
+            <Th>Marca</Th>
+            <Th>Precio</Th>
+            <Th>Imagen</Th>
+            <Th>Categoría</Th>
+            <Th>Subcategoría</Th>
+            <Th>Estado</Th>
+            <Th>Acciones</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {Products.map((product) => (
+            <Tr key={product._id}>
+              <Td>{product.name}</Td>
+              <Td>{product.description}</Td>
+              <Td>{product.brand}</Td>
+              <Td>${product.price}</Td>
+              <Td>
+                <img src={product.image} alt={product.name} tw="w-36 h-16 object-cover" />
+                <button 
+                  tw="bg-[#077F8C] text-white px-2 py-1 rounded mt-2 w-full"
+                  onClick={() => openImageModal(product.image)}
+                >
+                  Ver
+                </button>
+              </Td>
+              <Td>{product.categoryId?.category}</Td>
+              <Td>{product.subCategoryId?.subcategory}</Td>
+              <Td>
+                <span tw="bg-[#0568a6] text-white rounded-md px-2 py-1 text-xs">
+                  {product.status}
+                </span>
+              </Td>
+              <Td>
+                <Link to={`/dashboard/update/${product._id}`} tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full inline-block text-center">
+                  Actualizar
+                </Link>
+                <ButtonDeleteProductComponent productId={product._id} onDelete={() => handleDeleteProduct(product._id)} />
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
 
       {selectedImage && (
         <div tw="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -191,7 +209,7 @@ const ProductListComponent = () => {
           </div>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -7,12 +7,12 @@ import ButtonDeleteSubcategoryComponent from '../../components/ButtonDeleteSubca
 
 const PageContainer = tw.div`min-h-screen bg-gray-100 p-8`;
 const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
-const Table = tw.table`min-w-full bg-white`;
+const Table = tw.table`min-w-full bg-white border mt-4`;
 const Thead = tw.thead``;
 const Tbody = tw.tbody``;
 const Tr = tw.tr``;
-const Th = tw.th`py-2 px-4 border-b border-gray-200`;
-const Td = tw.td`py-2 px-4 border-b border-gray-200`;
+const Th = tw.th`py-2 px-4 border-b bg-gray-100 text-center text-gray-600 font-bold`;
+const Td = tw.td`py-2 px-4 border text-left text-gray-700`;
 
 const ModalBackground = tw.div`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center`;
 const ModalContainer = tw.div`bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative`;

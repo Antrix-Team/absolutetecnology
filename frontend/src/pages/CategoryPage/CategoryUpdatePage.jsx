@@ -1,17 +1,16 @@
-/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
 import tw from 'twin.macro';
 import axios from 'axios';
 import ButtonDeleteCategoryComponent from '../../components/ButtonDeleteCategoryComponent/ButtonDeleteCategoryComponent';
 
-const PageContainer = tw.div`min-h-screen bg-gray-100 p-8`;
+const Container = tw.div`min-h-screen bg-gray-100 p-8`;
 const PageTitle = tw.h1`text-4xl font-bold mb-6 text-center text-gray-900`;
-const Table = tw.table`min-w-full bg-white`;
-const Thead = tw.thead``;
+const Table = tw.table`min-w-full bg-white border-collapse border mt-4`;
+const Thead = tw.thead`bg-gray-200`;
 const Tbody = tw.tbody``;
 const Tr = tw.tr``;
-const Th = tw.th`py-2 px-4 border-b border-gray-200`;
-const Td = tw.td`py-2 px-4 border-b border-gray-200`;
+const Th = tw.th`py-2 px-4 border text-center text-gray-700 font-bold`;
+const Td = tw.td`py-2 px-4 border text-left text-gray-700`;
 
 const ModalBackground = tw.div`fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center`;
 const ModalContainer = tw.div`bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative`;
@@ -52,28 +51,44 @@ const CategoryPage = () => {
       setCategoryName('');
       setCategoryDescription('');
       fetchCategories();
+      setIsModalOpen(false); // Cerrar modal después de agregar categoría
     } catch (error) {
       console.error('Error creating category:', error);
     }
   };
 
-  const handleDeleteCategory = (categoryId) => {
-    setCategories((prevCategories) => prevCategories.filter(category => category._id !== categoryId));
+  const handleDeleteCategory = async (categoryId) => {
+    try {
+      await axios.delete(`${urlInventary}/categories/${categoryId}`);
+      fetchCategories();
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCategoryName('');
+    setCategoryDescription('');
   };
 
   return (
-    <PageContainer>
+    <Container>
       <PageTitle>Página de Categorías</PageTitle>
       <button
         tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
-        onClick={() => setIsModalOpen(true)}
+        onClick={openModal}
       >
         Agregar Categoría
       </button>
       {isModalOpen && (
         <ModalBackground>
           <ModalContainer>
-            <CloseButton onClick={() => setIsModalOpen(false)}>×</CloseButton>
+            <CloseButton onClick={closeModal}>×</CloseButton>
             <h2 tw="text-xl font-bold mb-4">Agregar Categoría</h2>
             <form onSubmit={handleCategorySubmit}>
               <FormGroup>
@@ -102,7 +117,7 @@ const CategoryPage = () => {
       <Table>
         <Thead>
           <Tr>
-            <Th>Categoría</Th>
+            <Th>Nombre</Th>
             <Th>Descripción</Th>
             <Th>Acciones</Th>
           </Tr>
@@ -114,13 +129,13 @@ const CategoryPage = () => {
               <Td>{category.description}</Td>
               <Td>
                 <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24">Actualizar</button>
-                <ButtonDeleteCategoryComponent categoryId={category._id} onDelete={handleDeleteCategory} />
+                <ButtonDeleteCategoryComponent categoryId={category._id} onDelete={() => handleDeleteCategory(category._id)} />
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
-    </PageContainer>
+    </Container>
   );
 };
 

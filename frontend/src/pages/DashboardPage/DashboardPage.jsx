@@ -12,6 +12,7 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 import InventaryPage from "../InventaryPage/InventaryPage";
 import CategoryPage from "../CategoryPage/CategoryUpdatePage";
+import HomePage from "../HomePage/HomePage";
 
 const DashboardPage = () => {
   return (
@@ -26,7 +27,9 @@ const DashboardPage = () => {
             <PrivateRoute element={HeaderDefault} />
           }
         >
-          <Route index element={<SubCategoryPage />} />
+
+          <Route index element={<HomePage />} />
+          <Route path="subcategories" element={<SubCategoryPage />} />
           <Route path="products" element={<ProductListPage />} />
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />

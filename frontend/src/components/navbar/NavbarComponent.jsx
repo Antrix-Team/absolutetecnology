@@ -91,9 +91,10 @@ const NavbarDefault = () => {
         Absolute Technology
       </Logo>
       <NavLinksContainer>
+      <HomeLink to="/dashboard">Home</HomeLink>
       <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
       <ProductsLink to="/dashboard/categoriesandsubcategories">Categories</ProductsLink>
-        <HomeLink to="/dashboard">SubCategories</HomeLink>
+        <HomeLink to="/dashboard/subcategories">SubCategories</HomeLink>
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
 

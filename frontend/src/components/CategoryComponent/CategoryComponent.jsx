@@ -74,7 +74,7 @@ const CategoryComponent = ({ onCategoryCreated }) => {
   return (
     <>
       <button
-        tw="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6"
+        tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
         onClick={() => setIsModalOpen(true)}
       >
         Agregar Categoría y Subcategoría
@@ -141,7 +141,7 @@ const CategoryComponent = ({ onCategoryCreated }) => {
                   required
                 />
               </FormGroup>
-              <SubmitButton type="submit">Agregar Subcategoría</SubmitButton>
+              <SubmitButton type="submit" >Agregar Subcategoría</SubmitButton>
             </form>
           </ModalContainer>
         </ModalBackground>

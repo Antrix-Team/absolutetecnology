@@ -20,8 +20,8 @@ const ButtonDeleteEmployeeComponent = ({ employeeId, onDelete }) => {
 
   return (
     <button
-      tw="bg-red-500 text-black px-0.5 py-1 rounded hover:bg-red-600 focus:outline-none w-full"
-      onClick={handleDelete}
+      tw="bg-[#065473] w-24 ml-0 text-white px-2 py-1 rounded"
+        onClick={handleDelete}
     >
       Eliminar
     </button>

@@ -65,7 +65,7 @@ const CategoryPage = () => {
     <PageContainer>
       <PageTitle>Página de Categorías</PageTitle>
       <button
-        tw="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6"
+        tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
         onClick={() => setIsModalOpen(true)}
       >
         Agregar Categoría
@@ -113,7 +113,7 @@ const CategoryPage = () => {
               <Td>{category.category}</Td>
               <Td>{category.description}</Td>
               <Td>
-                <button tw="text-blue-500 hover:text-blue-700">Actualizar</button>
+                <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24">Actualizar</button>
                 <ButtonDeleteCategoryComponent categoryId={category._id} onDelete={handleDeleteCategory} />
               </Td>
             </Tr>

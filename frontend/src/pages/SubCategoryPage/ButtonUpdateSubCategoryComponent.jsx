@@ -51,7 +51,7 @@ const ButtonUpdateSubCategoryComponent = ({ subcategory }) => {
 
   return (
     <>
-      <button tw="text-blue-500 hover:text-blue-700" onClick={() => setIsModalOpen(true)}>
+      <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24" onClick={() => setIsModalOpen(true)}>
         Actualizar
       </button>
       {isModalOpen && (

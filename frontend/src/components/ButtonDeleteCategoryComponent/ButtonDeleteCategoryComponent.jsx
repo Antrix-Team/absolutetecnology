@@ -20,7 +20,7 @@ const ButtonDeleteCategoryComponent = ({ categoryId, onDelete }) => {
 
   return (
     <button
-      tw="bg-[#065473] text-white px-2 py-1 rounded w-full"
+      tw="bg-[#065473] w-24 ml-2 text-white px-2 py-1 rounded"
       onClick={handleDelete}
     >
       Eliminar

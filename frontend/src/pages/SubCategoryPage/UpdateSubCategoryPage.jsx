@@ -89,10 +89,10 @@ const SubCategoryPage = () => {
     <PageContainer>
       <PageTitle>Gestión de Subcategorías</PageTitle>
       <button
-        tw="mb-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
         onClick={() => setIsModalOpen(true)}
       >
-        Crear Subcategoría
+      Agregar Subcategoría
       </button>
       <Table>
         <Thead>
@@ -125,7 +125,7 @@ const SubCategoryPage = () => {
       {isModalOpen && (
         <ModalBackground>
           <ModalContainer>
-            <CloseButton onClick={() => setIsModalOpen(false)}>×</CloseButton>
+            <CloseButton tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 w-full inline-block text-center" onClick={() => setIsModalOpen(false)}>×</CloseButton>
             <h2 tw="text-xl font-bold mb-4">Crear Subcategoría</h2>
             <form onSubmit={handleCreateSubcategory}>
               <FormGroup>

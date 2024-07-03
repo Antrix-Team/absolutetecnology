@@ -31,7 +31,7 @@ const EmployeListComponent = () => {
         />
         <button
           onClick={() => handleSearch(searchTerm)}
-          tw="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700 focus:outline-none"
+          tw="bg-[#0568a6] text-white px-4 py-2 rounded-r hover:bg-blue-700"
         >
           Buscar
         </button>
@@ -55,7 +55,7 @@ const EmployeListComponent = () => {
               <td tw="border px-4 py-2 text-gray-700">{employee.carnet}</td>
               <td tw="border px-4 py-2 text-center">
                 <div tw="flex flex-col items-center space-y-2">
-                  <button tw="bg-yellow-400 text-black px-0.5 py-1 rounded hover:bg-yellow-500 focus:outline-none w-full">
+                  <button tw="bg-[#077F8C] text-white px-2 py-1 rounded mb-2 text-center w-24">
                     Actualizar
                   </button>
                   <ButtonDeleteEmployeeComponent employeeId={employee._id} onDelete={handleDeleteEmployee} />

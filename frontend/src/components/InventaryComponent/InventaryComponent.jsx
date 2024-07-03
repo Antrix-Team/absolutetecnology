@@ -95,7 +95,8 @@ const InventaryComponent = () => {
     <Container>
       <Title>Inventario</Title>
       <button
-        tw="mb-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+      
+        tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded"
         onClick={() => setIsModelOpen(true)}
       >
         Agregar inventario
@@ -178,7 +179,7 @@ const InventaryComponent = () => {
                   Actualizar
               </button>
               <button tw="bg-[#065473] w-24 ml-2 text-white px-2 py-1 rounded" onClick={(e) => handleDeleteInventory(e, inventory._id)}>
-                  Delete
+                  Eliminar
               </button>
               </Td>
             </tr>

@@ -7,7 +7,7 @@ const EmployeListPage = () => {
     return (
         <div tw="flex flex-col items-center">
             <Link to="/dashboard/register" tw="mb-4">
-                <button tw="px-4 py-2 bg-blue-500 text-white rounded">Create user</button>
+                <button tw="mb-4 bg-[#0568a6] text-white font-bold py-2 px-4 rounded">Agregar Usuario</button>
             </Link>
             <EmployeListComponent />
         </div>

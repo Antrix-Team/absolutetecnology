@@ -48,7 +48,9 @@ const HomeLink = styled(NavLink)``;
 const ProductsLink = styled(NavLink)``;
 const ProviderLink = styled(NavLink)``;
 const UsersLink = styled(NavLink)``;
-const AddUserModal = styled(ButtonAddUser)``;
+const CategoryLink = styled(NavLink)``;
+const SubcategoryLink = styled(NavLink)``;
+
 
 const NavbarContainer = styled.div(() => [
   tw`w-full bg-[#042F40] p-4 flex justify-between items-center shadow-lg`,
@@ -90,11 +92,11 @@ const NavbarDefault = () => {
         Absolute Technology
       </Logo>
       <NavLinksContainer>
-        <HomeLink to="/dashboard">Home</HomeLink>
+      <ProviderLink to="/dashboard/">Home</ProviderLink>
         <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
-        <ProductsLink to="/dashboard/categoriesandsubcategories">Categories</ProductsLink>
-        <ProductsLink to="/dashboard/subcategories">SubCategories</ProductsLink>
-        <ProductsLink to="/dashboard/products">Products</ProductsLink>
+        <ProductsLink to="/dashboard/categories">Categories</ProductsLink>
+        <SubcategoryLink to="/dashboard/subcategories">SubCategories</SubcategoryLink>
+        <CategoryLink to="/dashboard/products">Products</CategoryLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
 
         <button onClick={handleLogout} tw="bg-red-600 text-white text-lg px-4 py-2 rounded transition-colors duration-300 mx-4">

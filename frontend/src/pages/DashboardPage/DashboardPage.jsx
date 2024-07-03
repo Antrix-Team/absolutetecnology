@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LoginPage from "../LoginPage/LoginPage";
 import HeaderDefault from "../../components/header/HeaderComponent";
 import SubCategoryPage from "../SubCategoryPage/UpdateSubCategoryPage";
-
 import EmployeListPage from "../EmployeListPage/EmployeListPage";
 import LoginRegisterPage from "../LoginRegisterPage/LoginRegisterPage";
 import ProductListPage from "../ProductPage/ProductPage";
@@ -12,8 +11,7 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { UpdateProductPage } from "../UpdateProductPage/UpdateProductPage";
 import InventaryPage from "../InventaryPage/InventaryPage";
 import CategoryPage from "../CategoryPage/CategoryUpdatePage";
-import HomePage from "../HomePage/HomePage";
-
+import Home from "../../components/home/HomeComponent";
 const DashboardPage = () => {
   return (
     <Router>
@@ -27,13 +25,12 @@ const DashboardPage = () => {
             <PrivateRoute element={HeaderDefault} />
           }
         >
-
-          <Route index element={<HomePage />} />
-          <Route path="subcategories" element={<SubCategoryPage />} />
+          <Route index element={<Home />} />
           <Route path="products" element={<ProductListPage />} />
           <Route path="employees" element={<EmployeListPage />} />
           <Route path="register" element={<LoginRegisterPage />} />
-          <Route path="categoriesandsubcategories" element={<CategoryPage/>} />
+          <Route path="subcategories" element={<SubCategoryPage/>} />
+          <Route path="categories" element={<CategoryPage/>} />
           <Route path="update/:id" element={<UpdateProductPage />} />
           <Route path="inventary" element={<InventaryPage />} />
         </Route>

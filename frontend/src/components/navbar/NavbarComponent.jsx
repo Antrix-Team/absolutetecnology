@@ -8,7 +8,6 @@ import logo from '../../assets/logoabsolutetecnology.svg';
 axios.defaults.withCredentials = true;
 const urllogout = import.meta.env.VITE_URL;
 
-// Estiliza el componente NavLink
 const NavLink = styled(Link)(() => [
   tw`text-white text-lg mx-4 px-4 py-2 transition-colors duration-300`,
   css`
@@ -52,7 +51,7 @@ const UsersLink = styled(NavLink)``;
 const AddUserModal = styled(ButtonAddUser)``;
 
 const NavbarContainer = styled.div(() => [
-  tw`w-full bg-blue-600/40 p-4 flex justify-between items-center shadow-lg`,
+  tw`w-full bg-[#042F40] p-4 flex justify-between items-center shadow-lg`,
 ]);
 
 const Logo = styled.div(() => [
@@ -66,7 +65,7 @@ const Logo = styled.div(() => [
 ]);
 
 const NavLinksContainer = styled.div(() => [
-  tw`flex items-center`,
+  tw`flex items-center text-white`, // Añadido: texto blanco para todos los enlaces y botones
 ]);
 
 const NavbarDefault = () => {
@@ -91,8 +90,8 @@ const NavbarDefault = () => {
         Absolute Technology
       </Logo>
       <NavLinksContainer>
-      <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
-      <ProductsLink to="/dashboard/categoriesandsubcategories">Categories</ProductsLink>
+        <ProviderLink to="/dashboard/inventary">Inventary</ProviderLink>
+        <ProductsLink to="/dashboard/categoriesandsubcategories">Categories</ProductsLink>
         <HomeLink to="/dashboard">SubCategories</HomeLink>
         <ProductsLink to="/dashboard/products">Products</ProductsLink>
         <UsersLink to="/dashboard/employees">Users</UsersLink>
